@@ -19,21 +19,18 @@ struct ReusableTextField : View {
         HStack {
             Image(leftImage)
                 .frame(width: 20,height: 20)
+                .padding(.leading,16)
             
 
             TextField(placeHolderText, text: $text)
 
-            Button(action: {
-                text = ""
-            }) {
-                Image(systemName: "xmark.circle.fill")
-                    .foregroundColor(.gray)
-            }
+
         }
-        .padding()
-        .frame(minHeight:46)
+        .frame(height: 46)
         .background(Color(.textFieldBG))
         .cornerRadius(23)
+        .shadow(color:.textFieldShadow,radius: 4)
+
     }
     
 }

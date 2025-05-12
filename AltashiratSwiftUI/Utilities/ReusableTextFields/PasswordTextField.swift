@@ -12,6 +12,7 @@ struct PasswordTextField :View {
         HStack {
             Image("lockIcon")
                 .frame(width: 20,height: 20)
+                .padding(16)
             
 
             if showPassword{
@@ -25,12 +26,15 @@ struct PasswordTextField :View {
             }) {
                 Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
                     .foregroundColor(.gray)
+                    .padding(16)
+
             }
         }
-        .padding()
-        .frame(minHeight:46)
+
+        .frame(height: 46)
         .background(Color(.textFieldBG))
         .cornerRadius(23)
+        .shadow(color:.textFieldShadow,radius: 4)
     }
 
 }

@@ -12,7 +12,7 @@ struct PhoneTextField:View {
         HStack {
             Image("mobileIcon")
                 .frame(width: 20,height: 20)
-                .padding()
+                .padding(16)
 
             
 
@@ -23,12 +23,15 @@ struct PhoneTextField:View {
                 .frame(width: 81 , height: 46)
 
         }
-        .frame(width: .infinity , height: 46)
+        .frame( height: 46)
         .background(Color(.textFieldBG))
         .cornerRadius(23)
+        .shadow(color:.textFieldShadow,radius: 4)
+
+
     }
     
 }
-#Preview {
-    PhoneTextField()
-}
+//#Preview {
+//    PhoneTextField()
+//}
