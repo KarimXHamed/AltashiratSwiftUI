@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginScene: View {
+    
     var body: some View {
         ZStack {
             Image("rectangle")
@@ -32,6 +33,7 @@ struct LoginScene: View {
                 .padding(.trailing,16)
                 HStack {
                     Image("plane")
+                        .scaleEffect(x:-1,y:1)
                         .frame(width: 53.6,height: 48)
                         .padding(.leading,48.4)
                         .scaledToFit()
@@ -39,19 +41,17 @@ struct LoginScene: View {
                 }
                 .padding(.bottom,5)
                     VStack {
-                        HStack{
-                            Color(.third)
-                                .frame(width: 100, height: 4)
-                                .padding(.leading, 20)
-                            Spacer()
-                        }
-                        .padding(.bottom,4)
                         HStack {
-                            Text("Login")
-                                .frame(height: 30)
-                                .foregroundColor(.text)
-                                .font(.system(size: 18 ,weight: .heavy))
-                                .padding(.leading,25)
+                            VStack(spacing: 4){
+                                Color(.third)
+                                    .frame(width: 100, height: 4)
+                                Text("Login")
+                                    .frame(height: 30)
+                                    .foregroundColor(.text)
+                                    .font(.system(size: 18 ,weight: .heavy))
+                            }
+                            .padding(.leading, 20)
+
                             Spacer()
                             NavigationLink(destination: SignUpScene()) {
                                 Text("Register")
@@ -88,16 +88,16 @@ struct LoginScene: View {
                 .cornerRadius(18)
                 .padding(.horizontal,8)
                 
-                HStack {
+                HStack(spacing:0) {
                     Text("Don't have account?")
                         .foregroundColor(.text)
                         .font(.system(size: 16,weight: .heavy))
-                    Button {
-                        print("create account clicked")
-                    }label: {
-                        Text("Create account")
-                            .foregroundColor(.second)
-                            .font(.system(size: 16,weight: .heavy))
+                   
+                        NavigationLink(destination: SignUpScene()) {
+                            Text("Create account")
+                                .foregroundColor(.second)
+                                .font(.system(size: 16,weight: .heavy))
+                        
                     }
                 }
                 .padding(.top,38)
@@ -109,8 +109,10 @@ struct LoginScene: View {
                 Image("loginLogo")
                     .frame(width: 80, height: 80)
                     .padding(.top,128)
-                    .padding(.bottom,287)
-                GradientButton(title: "Login")
+                    .padding(.bottom,279)
+                GradientButton(title: "Login") {
+                    print("login clicked")
+                }
                 Spacer()
             }
         }

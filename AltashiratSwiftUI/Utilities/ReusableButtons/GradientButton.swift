@@ -7,12 +7,10 @@
 import SwiftUI
 struct GradientButton :View {
     var title:String
-    init(title: String) {
-        self.title = title
-    }
+    var action : ()->Void
     var body: some View {
         Button {
-            
+            action()
         }
         label: {
             ZStack {
@@ -34,5 +32,7 @@ struct GradientButton :View {
 }
 
 #Preview {
-    GradientButton(title: "Login")
+    GradientButton(title: "Login") {
+        
+    }
 }

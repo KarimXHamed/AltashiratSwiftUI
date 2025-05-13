@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct SignUpScene: View {
+    @Environment(\.dismiss) var dismiss
+    @State private var firstName:String = ""
+    @State private var lastName:String = ""
+    @State private var email:String = ""
+    
     var body: some View {
         ZStack {
             Image("rectangle")
@@ -19,7 +24,7 @@ struct SignUpScene: View {
                 {
                     Spacer()
                     Button {
-                       print("go to skip")
+                        print("go to skip")
                     } label: {
                         Text("Skip")
                             .frame(height:26)
@@ -40,7 +45,7 @@ struct SignUpScene: View {
                 VStack(spacing:0) {
                     HStack(spacing:0) {
                         Button {
-                            print("login clicked")
+                            dismiss()
                         }label: {
                             Text("Login")
                                 .frame(height: 26)
@@ -52,26 +57,26 @@ struct SignUpScene: View {
                         VStack(alignment: .center, spacing: 5){
                             Color(.third)
                                 .frame(width:100,height: 4)
-
+                            
                             Text("Register")
                                 .frame(height: 30)
                                 .font(.system(size: 18,weight: .heavy))
                                 .foregroundColor(.text)
                         }
                         .padding(.trailing,20)
-
+                        
                     }
                     .padding(.bottom,17)
                     HStack(spacing:0) {
-                        TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter first name", title: "First name")
+                        TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter first name", title: "First name", text: $firstName)
                             .padding(.leading,8)
                         Spacer()
-                        TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter last name", title: "Last name")
+                        TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter last name", title: "Last name", text: $lastName)
                             .padding(.trailing,8)
-
+                        
                     }
                     .padding(.bottom,20)
-                    TextFieldReusableView(leftImage: "mailIcon", placeHolder: "Enter your mail", title: "Email")
+                    TextFieldReusableView(leftImage: "mailIcon", placeHolder: "Enter your mail", title: "Email", text: $email)
                         .padding(.horizontal,8)
                         .padding(.bottom,14)
                     PhoneReusableView()
@@ -81,10 +86,10 @@ struct SignUpScene: View {
                         .padding(.horizontal,8)
                         .padding(.bottom,56)
                 }
-                    .background(Color.white)
-                    .cornerRadius(18)
-                    .padding(.horizontal,8)
-
+                .background(Color.white)
+                .cornerRadius(18)
+                .padding(.horizontal,8)
+                
                 Spacer()
             }
             VStack{
@@ -92,14 +97,16 @@ struct SignUpScene: View {
                     .frame(width: 80, height: 80)
                     .padding(.top,128)
                     .padding(.bottom,414)
-                GradientButton(title: "Sign up")
+                GradientButton(title: "Sign up") {
+                    print("firstname:\(firstName) \n lastname:\(lastName) \n email:\(email)")
+                }
                     .padding(.bottom,16)
                 HStack(spacing: 0) {
                     Text("Having account already?")
                         .font(.system(size: 16,weight: .heavy))
                         .foregroundColor(.text)
                     Button {
-                        print("go to login")
+                        dismiss()
                     } label: {
                         Text("Login")
                             .font(.system(size: 16,weight: .heavy))
@@ -109,11 +116,12 @@ struct SignUpScene: View {
                 .frame(height: 26)
                 Spacer()
             }
-
+            
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
-#Preview {
-    SignUpScene()
-}
+//#Preview {
+//    SignUpScene()
+//}

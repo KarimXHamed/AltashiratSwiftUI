@@ -10,19 +10,18 @@ struct TextFieldReusableView:View {
     var placeHolder:String
     var title:String
     var errorText:String = ""
-    init(leftImage: String, placeHolder: String ,title:String) {
-        self.leftImage = leftImage
-        self.placeHolder = placeHolder
-        self.title = title
-    }
+    
+    @Binding var text:String
+
+    
     var body : some View {
         VStack(alignment: .leading,spacing:4) {
             Text(title)
                 .frame(height: 26)
                 .font(.system(size: 16,weight: .bold))
                 .foregroundColor(.text)
-            ReusableTextField(placeHolderText: placeHolder, leftImage: leftImage)
-            if errorText != ""{
+            ReusableTextField(text: $text, placeHolderText: placeHolder, leftImage: leftImage)
+            if errorText != "" {
                 Text(errorText)
                     .font(.system(size: 12,weight: .light))
                     .foregroundColor(.red)
@@ -32,6 +31,6 @@ struct TextFieldReusableView:View {
     }
     
 }
-#Preview {
-    TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter Your name", title: "First Name")
-}
+//#Preview {
+//    TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter Your name", title: "First Name")
+//}
