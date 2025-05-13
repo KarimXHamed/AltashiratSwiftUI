@@ -11,17 +11,25 @@ struct PasswordTextField :View {
     @FocusState private var isFocused:Bool
     var body : some View {
         HStack {
-            Image("lockIcon")
+            Icons.lockIcon.imageOriginal
                 .frame(width: 20,height: 20)
                 .padding(.leading,16)
                 .padding(.trailing,8)
                 .padding(.vertical,13)
 
             if showPassword{
-                TextField("Enter your password", text: $text)
+                TextField("",
+                          text: $text,
+                          prompt:Text("Enter your password")
+                    .font(Fonts.black.getFont(size: 14))
+                    .foregroundColor(.textFieldPH))
                     .focused($isFocused)
             } else {
-                SecureField("Enter your password", text: $text)
+                SecureField("",
+                            text: $text,
+                            prompt: Text("Enter your password")
+                    .font(Fonts.black.getFont(size: 14))
+                    .foregroundColor(.textFieldPH))
                     .focused($isFocused)
             }
 

@@ -11,7 +11,7 @@ struct LoginScene: View {
     
     var body: some View {
         ZStack {
-            Image("rectangle")
+            Icons.rectangle.imageOriginal
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
@@ -24,7 +24,7 @@ struct LoginScene: View {
                     }label: {
                         Text("Skip")
                             .foregroundColor(.text)
-                            .font(.system(size: 16,weight: .heavy))
+                            .font(Fonts.extraBold.getFont(size: 16))
                     }
          
                 }
@@ -32,7 +32,7 @@ struct LoginScene: View {
                 .padding(.bottom,41)
                 .padding(.trailing,16)
                 HStack {
-                    Image("plane")
+                    Icons.plane.imageOriginal
                         .scaleEffect(x:-1,y:1)
                         .frame(width: 53.6,height: 48)
                         .padding(.leading,48.4)
@@ -48,7 +48,7 @@ struct LoginScene: View {
                                 Text("Login")
                                     .frame(height: 30)
                                     .foregroundColor(.text)
-                                    .font(.system(size: 18 ,weight: .heavy))
+                                    .font(Fonts.extraBold.getFont(size: 18))
                             }
                             .padding(.leading, 20)
 
@@ -57,7 +57,7 @@ struct LoginScene: View {
                                 Text("Register")
                                     .frame(height: 26)
                                     .foregroundStyle(.notSelectedButton)
-                                    .font(.system(size: 16, weight: .heavy))
+                                    .font(Fonts.extraBold.getFont(size: 16))
                                     .padding(.trailing, 25)
                             }
                             
@@ -77,7 +77,7 @@ struct LoginScene: View {
                                 } label: {
                                     Text("Forget Password")
                                         .foregroundColor(.text)
-                                        .font(.system(size: 14 ,weight: .bold))
+                                        .font(Fonts.bold.getFont(size: 14))
                                         .padding(.trailing,21)
                                 }
                             }
@@ -91,12 +91,12 @@ struct LoginScene: View {
                 HStack(spacing:0) {
                     Text("Don't have account?")
                         .foregroundColor(.text)
-                        .font(.system(size: 16,weight: .heavy))
+                        .font(Fonts.extraBold.getFont(size: 16))
                    
                         NavigationLink(destination: SignUpScene()) {
                             Text("Create account")
                                 .foregroundColor(.second)
-                                .font(.system(size: 16,weight: .heavy))
+                                .font(Fonts.extraBold.getFont(size: 16))
                         
                     }
                 }
@@ -106,7 +106,7 @@ struct LoginScene: View {
                 }
           
             VStack{
-                Image("loginLogo")
+                Icons.loginLogo.imageOriginal
                     .frame(width: 80, height: 80)
                     .padding(.top,128)
                     .padding(.bottom,279)

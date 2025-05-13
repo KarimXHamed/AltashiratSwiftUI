@@ -15,11 +15,12 @@ struct SignUpScene: View {
     
     var body: some View {
         ZStack {
-            Image("rectangle")
+            Icons.rectangle.imageOriginal
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
             VStack(spacing: 0) {
+                
                 HStack(spacing:0)
                 {
                     Spacer()
@@ -28,7 +29,7 @@ struct SignUpScene: View {
                     } label: {
                         Text("Skip")
                             .frame(height:26)
-                            .font(.system(size: 16,weight:.heavy))
+                            .font(Fonts.extraBold.getFont(size: 16))
                             .foregroundColor(.text)
                     }
                 }
@@ -36,38 +37,40 @@ struct SignUpScene: View {
                 .padding(.trailing,16)
                 HStack(spacing:0) {
                     Spacer()
-                    Image("plane")
+                    Icons.plane.imageOriginal
                         .frame(width: 53.6,height: 48)
                         .padding(.trailing,50)
                 }
                 .padding(.top,41)
                 .padding(.bottom,5)
+                
                 VStack(spacing:0) {
+                    
                     HStack(spacing:0) {
                         Button {
                             dismiss()
                         }label: {
                             Text("Login")
                                 .frame(height: 26)
-                                .font(.system(size: 16,weight: .heavy))
+                                .font(Fonts.extraBold.getFont(size: 16))
                                 .foregroundColor(.notSelectedButton)
                                 .padding(.leading,16)
                         }
                         Spacer()
-                        VStack(alignment: .center, spacing: 5){
+                        VStack(alignment: .center, spacing: 5) {
                             Color(.third)
                                 .frame(width:100,height: 4)
                             
                             Text("Register")
                                 .frame(height: 30)
-                                .font(.system(size: 18,weight: .heavy))
+                                .font(Fonts.extraBold.getFont(size: 18))
                                 .foregroundColor(.text)
                         }
                         .padding(.trailing,20)
                         
                     }
                     .padding(.bottom,17)
-                    HStack(spacing:0) {
+                    HStack(spacing:8) {
                         TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter first name", title: "First name", text: $firstName)
                             .padding(.leading,8)
                         Spacer()
@@ -76,6 +79,7 @@ struct SignUpScene: View {
                         
                     }
                     .padding(.bottom,20)
+                    
                     TextFieldReusableView(leftImage: "mailIcon", placeHolder: "Enter your mail", title: "Email", text: $email)
                         .padding(.horizontal,8)
                         .padding(.bottom,14)
@@ -87,13 +91,13 @@ struct SignUpScene: View {
                         .padding(.bottom,56)
                 }
                 .background(Color.white)
-                .cornerRadius(18)
+                .cornerRadius(18)        //will be deprecated
                 .padding(.horizontal,8)
                 
                 Spacer()
             }
             VStack{
-                Image("loginLogo")
+                Icons.loginLogo.imageOriginal
                     .frame(width: 80, height: 80)
                     .padding(.top,128)
                     .padding(.bottom,414)
@@ -103,13 +107,13 @@ struct SignUpScene: View {
                     .padding(.bottom,16)
                 HStack(spacing: 0) {
                     Text("Having account already?")
-                        .font(.system(size: 16,weight: .heavy))
+                        .font(Fonts.extraBold.getFont(size: 16))
                         .foregroundColor(.text)
                     Button {
                         dismiss()
                     } label: {
                         Text("Login")
-                            .font(.system(size: 16,weight: .heavy))
+                            .font(Fonts.extraBold.getFont(size: 16))
                             .foregroundColor(.second)
                     }
                 }

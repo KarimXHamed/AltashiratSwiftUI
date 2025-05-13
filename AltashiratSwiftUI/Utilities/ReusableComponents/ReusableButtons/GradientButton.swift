@@ -17,9 +17,9 @@ struct GradientButton :View {
                 LinearGradient(colors:[.first,.second,.third],startPoint: .leading, endPoint: .trailing)
                 HStack(spacing:10) {
                     Text(title)
-                        .font(.system(size: 16,weight: .bold))
+                        .font(Fonts.bold.getFont(size: 16))
                         .foregroundColor(.white)
-                    Image("loginIcon")
+                    Icons.loginIcon.imageOriginal
                 }
             }
         }
