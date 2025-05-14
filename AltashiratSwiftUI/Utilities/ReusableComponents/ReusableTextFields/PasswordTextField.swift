@@ -6,7 +6,7 @@
 //
 import SwiftUI
 struct PasswordTextField :View {
-    @State private var text: String = ""
+    @Binding var text: String 
     @State private var showPassword:Bool = false
     @FocusState private var isFocused:Bool
     var body : some View {

@@ -8,7 +8,17 @@
 import SwiftUI
 
 struct LoginScene: View {
+    @State private var phoneNumber:String = ""
+    @State private var selectedCountry:CountryPickerModel = CountryPickerModel(id: 1, countrCode: "", flag: "")
+    @State private var countries:[CountryPickerModel] = []
+    @State private var password:String = ""
+    private var signUPViewModel = SignUpViewModel()
     
+/*@StateObject*/ private var viewModel:LoginViewModelProtocol
+    init(viewModel: LoginViewModelProtocol) {
+        self.viewModel = viewModel
+    }
+
     var body: some View {
         ZStack {
             Icons.rectangle.imageOriginal
@@ -53,7 +63,7 @@ struct LoginScene: View {
                             .padding(.leading, 20)
 
                             Spacer()
-                            NavigationLink(destination: SignUpScene()) {
+                            NavigationLink(destination: SignUpScene(viewModel: SignUpViewModel())) {
                                 Text("Register")
                                     .frame(height: 26)
                                     .foregroundStyle(.notSelectedButton)
@@ -64,9 +74,9 @@ struct LoginScene: View {
                         }
                         .padding(.bottom,29)
                         VStack(spacing:17){
-                            PhoneReusableView()
+                            PhoneReusableView(phoneNumber: $phoneNumber, selectedCountry: $selectedCountry, countries: $countries)
                                 .padding(.horizontal,8)
-                            PasswordReusableView()
+                            PasswordReusableView(text: $password)
                                 .padding(.horizontal,8)
 
                             HStack {
@@ -85,15 +95,18 @@ struct LoginScene: View {
                         }
                     }
                 .background(Color.white)
-                .cornerRadius(18)
-                .padding(.horizontal,8)
+                .clipShape(RoundedRectangle(cornerRadius: 18))
+                .padding(.horizontal,10)
                 
-                HStack(spacing:0) {
-                    Text("Don't have account?")
+                HStack(spacing:2) {
+                    Text("Don't have account")
+                        .foregroundColor(.text)
+                        .font(Fonts.extraBold.getFont(size: 16))
+                    Text("?")
                         .foregroundColor(.text)
                         .font(Fonts.extraBold.getFont(size: 16))
                    
-                        NavigationLink(destination: SignUpScene()) {
+                        NavigationLink(destination: SignUpScene(viewModel: SignUpViewModel())) {
                             Text("Create account")
                                 .foregroundColor(.second)
                                 .font(Fonts.extraBold.getFont(size: 16))
@@ -111,9 +124,16 @@ struct LoginScene: View {
                     .padding(.top,128)
                     .padding(.bottom,279)
                 GradientButton(title: "Login") {
-                    print("login clicked")
+                    let model = LoginRequestModel(phoneNumber: phoneNumber, phoneCode: selectedCountry.countrCode, password: password)
+                    viewModel.login(model: model)
                 }
                 Spacer()
+            }
+        }
+        .onAppear{
+            countries=viewModel.getCountries()
+            if let countriesFirstElement = countries.first{
+                selectedCountry = countriesFirstElement
             }
         }
     }

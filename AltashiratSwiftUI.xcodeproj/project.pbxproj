@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8096CB212DD50C6C004C0674 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 8096CB202DD50C6C004C0674 /* Factory */; };
+		8096CB232DD50C6C004C0674 /* FactoryTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 8096CB222DD50C6C004C0674 /* FactoryTesting */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		80178B6C2DCFB4D80041042D /* AltashiratSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AltashiratSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -14,7 +19,7 @@
 		80CD33E22DD3C12900097592 /* Exceptions for "AltashiratSwiftUI" folder in "AltashiratSwiftUI" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = 80178B6B2DCFB4D80041042D /* AltashiratSwiftUI */;
 		};
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8096CB232DD50C6C004C0674 /* FactoryTesting in Frameworks */,
+				8096CB212DD50C6C004C0674 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = AltashiratSwiftUI;
 			packageProductDependencies = (
+				8096CB202DD50C6C004C0674 /* Factory */,
+				8096CB222DD50C6C004C0674 /* FactoryTesting */,
 			);
 			productName = AltashiratSwiftUI;
 			productReference = 80178B6C2DCFB4D80041042D /* AltashiratSwiftUI.app */;
@@ -107,6 +116,9 @@
 			);
 			mainGroup = 80178B632DCFB4D80041042D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8096CB1F2DD50C6C004C0674 /* XCRemoteSwiftPackageReference "Factory" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 80178B6D2DCFB4D80041042D /* Products */;
 			projectDirPath = "";
@@ -267,7 +279,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AltashiratSwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AltashiratSwiftUI/Info.plist;
+				INFOPLIST_FILE = AltashiratSwiftUI/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -296,7 +308,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AltashiratSwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AltashiratSwiftUI/Info.plist;
+				INFOPLIST_FILE = AltashiratSwiftUI/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -337,6 +349,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8096CB1F2DD50C6C004C0674 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.13;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8096CB202DD50C6C004C0674 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8096CB1F2DD50C6C004C0674 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		8096CB222DD50C6C004C0674 /* FactoryTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8096CB1F2DD50C6C004C0674 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 80178B642DCFB4D80041042D /* Project object */;
 }

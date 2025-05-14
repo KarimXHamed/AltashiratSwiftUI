@@ -12,6 +12,14 @@ struct SignUpScene: View {
     @State private var firstName:String = ""
     @State private var lastName:String = ""
     @State private var email:String = ""
+    @State private var phoneNumber:String = ""
+    @State private var selectedCountry:CountryPickerModel = CountryPickerModel(id: 1, countrCode: "", flag: "")
+    @State private var countries:[CountryPickerModel] = []
+    @State private var password:String = ""
+    private var viewModel:SignUpViewModelProtocol
+    init(viewModel: SignUpViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         ZStack {
@@ -54,7 +62,7 @@ struct SignUpScene: View {
                                 .frame(height: 26)
                                 .font(Fonts.extraBold.getFont(size: 16))
                                 .foregroundColor(.notSelectedButton)
-                                .padding(.leading,16)
+                                .padding(.leading,25)
                         }
                         Spacer()
                         VStack(alignment: .center, spacing: 5) {
@@ -73,7 +81,6 @@ struct SignUpScene: View {
                     HStack(spacing:8) {
                         TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter first name", title: "First name", text: $firstName)
                             .padding(.leading,8)
-                        Spacer()
                         TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter last name", title: "Last name", text: $lastName)
                             .padding(.trailing,8)
                         
@@ -83,16 +90,16 @@ struct SignUpScene: View {
                     TextFieldReusableView(leftImage: "mailIcon", placeHolder: "Enter your mail", title: "Email", text: $email)
                         .padding(.horizontal,8)
                         .padding(.bottom,14)
-                    PhoneReusableView()
+                    PhoneReusableView(phoneNumber: $phoneNumber, selectedCountry: $selectedCountry, countries: $countries)
                         .padding(.horizontal,8)
                         .padding(.bottom,17)
-                    PasswordReusableView()
+                    PasswordReusableView(text: $password)
                         .padding(.horizontal,8)
                         .padding(.bottom,56)
                 }
                 .background(Color.white)
-                .cornerRadius(18)        //will be deprecated
-                .padding(.horizontal,8)
+                .clipShape(RoundedRectangle(cornerRadius: 18))    
+                .padding(.horizontal,10)
                 
                 Spacer()
             }
@@ -102,11 +109,23 @@ struct SignUpScene: View {
                     .padding(.top,128)
                     .padding(.bottom,414)
                 GradientButton(title: "Sign up") {
-                    print("firstname:\(firstName) \n lastname:\(lastName) \n email:\(email)")
+                    let model = SignUpRequestModel(
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        countryID: selectedCountry.id,
+                        countryCode: selectedCountry.countrCode,
+                        phoneNumber: phoneNumber,
+                        password: password
+                    )
+                    viewModel.signUP(model:model)
                 }
                     .padding(.bottom,16)
-                HStack(spacing: 0) {
-                    Text("Having account already?")
+                HStack(spacing: 2) {
+                    Text("Having account already")
+                        .font(Fonts.extraBold.getFont(size: 16))
+                        .foregroundColor(.text)
+                    Text("?")
                         .font(Fonts.extraBold.getFont(size: 16))
                         .foregroundColor(.text)
                     Button {
@@ -123,6 +142,12 @@ struct SignUpScene: View {
             
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            countries = viewModel.getCountries()
+            if let firstCountry = countries.first {
+                selectedCountry = firstCountry
+            }
+        }
     }
 }
 

@@ -6,7 +6,9 @@
 //
 import SwiftUI
 struct PhoneTextField:View {
-    @State private var text: String = ""
+    @Binding var countries:[CountryPickerModel]
+    @Binding var selectedCountry:CountryPickerModel
+    @Binding  var phoneNumber: String
     @FocusState private var isFocused:Bool
 
     var body : some View {
@@ -19,14 +21,14 @@ struct PhoneTextField:View {
             
 
             TextField("",
-                      text: $text,
+                      text: $phoneNumber,
                       prompt:Text("Enter your phone")
                 .font(Fonts.black.getFont(size: 14))
                 .foregroundColor(.textFieldPH))
                 .keyboardType(.numberPad)
                 .focused($isFocused)
 
-            CountryPicker()
+            CountryPicker(selectedCountry: $selectedCountry, countries: $countries)
                 .frame(width: 81 , height: 46)
 
         }

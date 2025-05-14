@@ -18,12 +18,12 @@ struct TextFieldReusableView:View {
         VStack(alignment: .leading,spacing:4) {
             Text(title)
                 .frame(height: 26)
-                .font(.system(size: 16,weight: .bold))
+                .font(Fonts.bold.getFont(size: 16))
                 .foregroundColor(.text)
             ReusableTextField(text: $text, placeHolderText: placeHolder, leftImage: leftImage)
             if errorText != "" {
                 Text(errorText)
-                    .font(.system(size: 12,weight: .light))
+                    .font(Fonts.light.getFont(size: 12))
                     .foregroundColor(.red)
             }
 

@@ -6,17 +6,18 @@
 //
 import SwiftUI
 struct PasswordReusableView:View {
+    @Binding var text:String
     var errorText:String = ""
     var body : some View {
         VStack(alignment: .leading,spacing:4) {
             Text("Password")
                 .frame(height: 26)
-                .font(.system(size: 16,weight: .bold))
+                .font(Fonts.bold.getFont(size: 16))
                 .foregroundColor(.text)
-            PasswordTextField()
+            PasswordTextField(text: $text)
             if errorText != ""{
                 Text(errorText)
-                    .font(.system(size: 12,weight: .light))
+                    .font(Fonts.light.getFont(size: 12))
                     .foregroundColor(.red)
             }
 
