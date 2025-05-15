@@ -9,5 +9,6 @@ protocol LoginViewModelProtocol {
     //@Published var countries {get set}
     func getCountries () -> [CountryPickerModel]
     func login(model:LoginRequestModel)
+    func goToSignUP ()
 }
 

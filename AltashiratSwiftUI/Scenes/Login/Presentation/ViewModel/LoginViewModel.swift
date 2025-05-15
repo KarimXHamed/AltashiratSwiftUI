@@ -27,7 +27,10 @@ class LoginViewModel:LoginViewModelProtocol {
             Country(id: 19, name: "Bhutan", currency: "BTN", code: "bt", phoneCode: "00975", flag: "🇧🇹"),
             Country(id: 20, name: "Bolivia", currency: "BOB", code: "bo", phoneCode: "00591", flag: "🇧🇴"),
             Country(id: 21, name: "Bosnia and Herzegovina", currency: "BAM", code: "ba", phoneCode: "00387", flag: "🇧🇦")]
-            
+    private var router:LoginRouterProtocol
+    init(router: LoginRouterProtocol) {
+        self.router = router
+    }
    
     
     func getCountries() -> [CountryPickerModel] {
@@ -44,6 +47,8 @@ class LoginViewModel:LoginViewModelProtocol {
                                   flag: domainModel.flag)
     }
     
-    
+    func goToSignUP() {
+        router.goToSignUP()
+    }
     
 }

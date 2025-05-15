@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    var appRouter = AppRouter()
     var body: some View {
-        NavigationStack{
-            let loginViewModel = LoginViewModel()
-            LoginScene(viewModel: loginViewModel)
-        }
+        appRouter.start()
     }
 }
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

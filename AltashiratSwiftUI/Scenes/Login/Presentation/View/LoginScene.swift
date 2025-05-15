@@ -14,29 +14,29 @@ struct LoginScene: View {
     @State private var password:String = ""
     private var signUPViewModel = SignUpViewModel()
     
-/*@StateObject*/ private var viewModel:LoginViewModelProtocol
+    private var viewModel:LoginViewModelProtocol
     init(viewModel: LoginViewModelProtocol) {
         self.viewModel = viewModel
     }
-
+    
     var body: some View {
         ZStack {
             Icons.rectangle.imageOriginal
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-
+            
             VStack(spacing:0){
                 HStack {
                     Spacer()
                     Button {
-                       print("skip clicked")
+                        print("skip clicked")
                     }label: {
                         Text("Skip")
                             .foregroundColor(.text)
                             .font(Fonts.extraBold.getFont(size: 16))
                     }
-         
+                    
                 }
                 .padding(.top,69)
                 .padding(.bottom,41)
@@ -50,50 +50,53 @@ struct LoginScene: View {
                     Spacer()
                 }
                 .padding(.bottom,5)
-                    VStack {
-                        HStack {
-                            VStack(spacing: 4){
-                                Color(.third)
-                                    .frame(width: 100, height: 4)
-                                Text("Login")
-                                    .frame(height: 30)
-                                    .foregroundColor(.text)
-                                    .font(Fonts.extraBold.getFont(size: 18))
-                            }
-                            .padding(.leading, 20)
-
-                            Spacer()
-                            NavigationLink(destination: SignUpScene(viewModel: SignUpViewModel())) {
-                                Text("Register")
-                                    .frame(height: 26)
-                                    .foregroundStyle(.notSelectedButton)
-                                    .font(Fonts.extraBold.getFont(size: 16))
-                                    .padding(.trailing, 25)
-                            }
-                            
+                VStack {
+                    HStack {
+                        VStack(spacing: 4){
+                            Color(.third)
+                                .frame(width: 100, height: 4)
+                            Text("Login")
+                                .frame(height: 30)
+                                .foregroundColor(.text)
+                                .font(Fonts.extraBold.getFont(size: 18))
                         }
-                        .padding(.bottom,29)
-                        VStack(spacing:17){
-                            PhoneReusableView(phoneNumber: $phoneNumber, selectedCountry: $selectedCountry, countries: $countries)
-                                .padding(.horizontal,8)
-                            PasswordReusableView(text: $password)
-                                .padding(.horizontal,8)
-
-                            HStack {
-                                Spacer()
-
-                                Button {
-                                    print("go to forget password")
-                                } label: {
-                                    Text("Forget Password")
-                                        .foregroundColor(.text)
-                                        .font(Fonts.bold.getFont(size: 14))
-                                        .padding(.trailing,21)
-                                }
-                            }
-                            .padding(.bottom,58)
+                        .padding(.leading, 20)
+                        
+                        Spacer()
+                        Button {
+                            viewModel.goToSignUP()
+                        } label: {
+                            Text("Register")
+                                .frame(height: 26)
+                                .foregroundStyle(.notSelectedButton)
+                                .font(Fonts.extraBold.getFont(size: 16))
+                                .padding(.trailing, 25)
                         }
+                        
+                        
                     }
+                    .padding(.bottom,29)
+                    VStack(spacing:17){
+                        PhoneReusableView(phoneNumber: $phoneNumber, selectedCountry: $selectedCountry, countries: $countries)
+                            .padding(.horizontal,8)
+                        PasswordReusableView(text: $password)
+                            .padding(.horizontal,8)
+                        
+                        HStack {
+                            Spacer()
+                            
+                            Button {
+                                print("go to forget password")
+                            } label: {
+                                Text("Forget Password")
+                                    .foregroundColor(.text)
+                                    .font(Fonts.bold.getFont(size: 14))
+                                    .padding(.trailing,21)
+                            }
+                        }
+                        .padding(.bottom,58)
+                    }
+                }
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 18))
                 .padding(.horizontal,10)
@@ -105,19 +108,21 @@ struct LoginScene: View {
                     Text("?")
                         .foregroundColor(.text)
                         .font(Fonts.extraBold.getFont(size: 16))
-                   
-                        NavigationLink(destination: SignUpScene(viewModel: SignUpViewModel())) {
-                            Text("Create account")
-                                .foregroundColor(.second)
-                                .font(Fonts.extraBold.getFont(size: 16))
-                        
+                    
+                    Button {
+                        viewModel.goToSignUP()
+                    } label: {
+                        Text("Create account")
+                            .foregroundColor(.second)
+                            .font(Fonts.extraBold.getFont(size: 16))
                     }
+
                 }
                 .padding(.top,38)
                 Spacer()
                 
-                }
-          
+            }
+            
             VStack{
                 Icons.loginLogo.imageOriginal
                     .frame(width: 80, height: 80)

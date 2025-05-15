@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SignUpScene: View {
+
+    
     @Environment(\.dismiss) var dismiss
     @State private var firstName:String = ""
     @State private var lastName:String = ""

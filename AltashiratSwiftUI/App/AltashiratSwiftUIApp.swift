@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
-
 @main
 struct AltashiratSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            }
         }
+        
     }
-}
+
