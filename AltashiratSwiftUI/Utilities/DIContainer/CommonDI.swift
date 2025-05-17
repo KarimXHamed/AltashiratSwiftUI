@@ -11,4 +11,8 @@ extension Container{
             .scope(.shared)
     }
     
+    var getCountriesUseCase: Factory<GetCountriesUseCaseProtocol> {
+        self {GetCountriesUseCase()}
+    }
+    
 }
