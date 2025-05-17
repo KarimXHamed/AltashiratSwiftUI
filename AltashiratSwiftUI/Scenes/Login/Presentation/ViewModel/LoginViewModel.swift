@@ -5,7 +5,9 @@
 //  Created by Karim Hamed  on 14/05/2025.
 //
 import Combine
+import Factory
 class LoginViewModel:LoginViewModelProtocol {
+    @Injected(\.loginRouter) private var router:LoginRouterProtocol
     var countries: [Country] = [
             Country(id: 1, name: "Saudi Arabia", currency: "SAR", code: "sa", phoneCode: "00966", flag: "🇸🇦"),
             Country(id: 2, name: "Egypt", currency: "EGP", code: "eg", phoneCode: "0020", flag: "🇪🇬"),
@@ -27,10 +29,6 @@ class LoginViewModel:LoginViewModelProtocol {
             Country(id: 19, name: "Bhutan", currency: "BTN", code: "bt", phoneCode: "00975", flag: "🇧🇹"),
             Country(id: 20, name: "Bolivia", currency: "BOB", code: "bo", phoneCode: "00591", flag: "🇧🇴"),
             Country(id: 21, name: "Bosnia and Herzegovina", currency: "BAM", code: "ba", phoneCode: "00387", flag: "🇧🇦")]
-    private var router:LoginRouterProtocol
-    init(router: LoginRouterProtocol) {
-        self.router = router
-    }
    
     
     func getCountries() -> [CountryPickerModel] {

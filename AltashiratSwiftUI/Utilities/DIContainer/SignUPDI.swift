@@ -8,9 +8,13 @@ import Factory
 import SwiftUI
 extension Container {
     static func signUPServiceDI () -> SignUpScene {
-        //let router  = SignUpRouter()
         let viewModel = SignUpViewModel()
         let view = SignUpScene(viewModel: viewModel)
         return view
     }
+    
+    var signUPRouter: Factory<SignUPRouterProtocol> {
+        self {SignUPRouter()}
+    }
+    
 }

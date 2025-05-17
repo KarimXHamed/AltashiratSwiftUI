@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    var appRouter = AppRouter()
     var body: some View {
-        appRouter.start()
+        AppRouter()
     }
 }
 //#Preview {

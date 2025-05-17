@@ -7,10 +7,8 @@
 import SwiftUI
 import Factory
 class LoginRouter:LoginRouterProtocol {
-    private var routerManager: RouterManager
-    init (routerManager: RouterManager) {
-        self.routerManager = routerManager
-    }
+    
+    @Injected(\.routerManager) private var routerManager:RouterManager
 
     func goToSignUP() {
         routerManager.push(screen: .signUP)

@@ -4,8 +4,10 @@
 //
 //  Created by Karim Hamed  on 14/05/2025.
 //
+import Combine
+import Factory
 class SignUpViewModel:SignUpViewModelProtocol {
-    
+    @Injected(\.signUPRouter) private var router:SignUPRouterProtocol
     var countries: [Country] = [
             Country(id: 1, name: "Saudi Arabia", currency: "SAR", code: "sa", phoneCode: "00966", flag: "🇸🇦"),
             Country(id: 2, name: "Egypt", currency: "EGP", code: "eg", phoneCode: "0020", flag: "🇪🇬"),
@@ -35,6 +37,11 @@ class SignUpViewModel:SignUpViewModelProtocol {
     func getCountries() -> [CountryPickerModel] {
         return countries.map {mapCountries(domainModel: $0)}
     }
+    
+    func goToLogin() {
+        router.goToLogin()
+    }
+
     
     private func mapCountries(domainModel:Country) -> CountryPickerModel {
         return CountryPickerModel(id: domainModel.id,

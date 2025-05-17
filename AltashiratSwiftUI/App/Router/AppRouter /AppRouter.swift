@@ -6,14 +6,18 @@
 //
 import SwiftUI
 import Factory
-class AppRouter {
+struct AppRouter:View {
     @InjectedObject(\.routerManager) private var routerManager:RouterManager
-
+    var body : some View {
+        start()
+    }
+    
     @ViewBuilder
     func start () -> some View {
         NavigationStack(path: $routerManager.routes) {
             Container.loginServiceDI()
+                .navigationDestination(for: AppRoute.self) {$0}
+
         }
-        .navigationDestination(for: AppRoute.self) {$0}
     }
 }

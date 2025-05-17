@@ -10,7 +10,6 @@ import SwiftUI
 struct SignUpScene: View {
 
     
-    @Environment(\.dismiss) var dismiss
     @State private var firstName:String = ""
     @State private var lastName:String = ""
     @State private var email:String = ""
@@ -58,7 +57,7 @@ struct SignUpScene: View {
                     
                     HStack(spacing:0) {
                         Button {
-                            dismiss()
+                            viewModel.goToLogin()
                         }label: {
                             Text("Login")
                                 .frame(height: 26)
@@ -131,7 +130,7 @@ struct SignUpScene: View {
                         .font(Fonts.extraBold.getFont(size: 16))
                         .foregroundColor(.text)
                     Button {
-                        dismiss()
+                        viewModel.goToLogin()
                     } label: {
                         Text("Login")
                             .font(Fonts.extraBold.getFont(size: 16))

@@ -7,4 +7,5 @@
 protocol SignUpViewModelProtocol {
     func signUP(model:SignUpRequestModel)
     func getCountries() -> [CountryPickerModel]
+    func goToLogin()
 }
