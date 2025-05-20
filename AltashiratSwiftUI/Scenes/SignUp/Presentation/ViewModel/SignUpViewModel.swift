@@ -27,7 +27,7 @@ class SignUpViewModel:SignUpViewModelProtocol {
     
     private func mapCountries(domainModel:Country) -> CountryPickerModel {
         return CountryPickerModel(id: domainModel.id,
-                                  countrCode: domainModel.phoneCode,
+                                  countryCode: domainModel.phoneCode,
                                   flag: domainModel.flag)
     }
     

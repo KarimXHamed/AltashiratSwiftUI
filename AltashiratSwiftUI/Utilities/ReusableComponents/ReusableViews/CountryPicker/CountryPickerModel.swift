@@ -4,15 +4,17 @@
 //
 //  Created by Karim Hamed  on 14/05/2025.
 //
-struct CountryPickerModel:Identifiable {
+struct CountryPickerModel:Equatable,Identifiable {
     var id: Int
-    var countrCode:String
+    var countryCode:String
     var flag:String
     
     var displayName:String {
-        var formated = countrCode
+        var formated = countryCode
         if formated.hasPrefix("00") {
             formated.removeFirst(2)
+        } else {
+            return ""
         }
         return "(+\(formated)) \(flag)"
     }

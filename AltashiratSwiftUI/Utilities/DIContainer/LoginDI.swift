@@ -7,9 +7,9 @@
 import Factory
 import SwiftUI
 extension Container {
-    static func loginServiceDI () -> LoginScene {
+    static func loginServiceDI () -> some View {
         let viewModel = LoginViewModel()
-        let view = LoginScene(viewModel: viewModel)
+        let view = LoginScene<LoginViewModel>(viewModel: viewModel)
         return view
     }
     

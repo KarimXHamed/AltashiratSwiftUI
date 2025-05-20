@@ -5,12 +5,13 @@
 //  Created by Karim Hamed  on 11/05/2025.
 //
 import SwiftUI
+
 struct TextFieldReusableView:View {
     var leftImage:String
     var placeHolder:String
     var title:String
-    var errorText:String = ""
     
+    @Binding var errorText:String
     @Binding var text:String
 
     
@@ -21,6 +22,9 @@ struct TextFieldReusableView:View {
                 .font(Fonts.bold.getFont(size: 16))
                 .foregroundColor(.text)
             ReusableTextField(text: $text, placeHolderText: placeHolder, leftImage: leftImage)
+                .onChange(of: text) {
+                    errorText = ""
+                }
             if errorText != "" {
                 Text(errorText)
                     .font(Fonts.light.getFont(size: 12))

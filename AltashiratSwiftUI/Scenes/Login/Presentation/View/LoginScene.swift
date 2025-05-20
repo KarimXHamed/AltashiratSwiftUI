@@ -6,21 +6,16 @@
 //
 
 import SwiftUI
+import Combine
 
-struct LoginScene: View {
-    @State private var phoneNumber:String = ""
-    @State private var selectedCountry:CountryPickerModel = CountryPickerModel(id: 1, countrCode: "", flag: "")
-    @State private var countries:[CountryPickerModel] = []
-    @State private var password:String = ""
-    private var signUPViewModel = SignUpViewModel()
+struct LoginScene<ViewModel:LoginViewModelProtocol>: View {
     
-    private var viewModel:LoginViewModelProtocol
-    init(viewModel: LoginViewModelProtocol) {
-        self.viewModel = viewModel
-    }
+    @StateObject var viewModel:ViewModel
     
     var body: some View {
+        
         ZStack {
+            
             Icons.rectangle.imageOriginal
                 .resizable()
                 .scaledToFill()
@@ -30,7 +25,7 @@ struct LoginScene: View {
                 HStack {
                     Spacer()
                     Button {
-                        print("skip clicked")
+                        viewModel.onAction(action: LoginUIAction.onSkipClicked)
                     }label: {
                         Text("Skip")
                             .foregroundColor(.text)
@@ -41,6 +36,7 @@ struct LoginScene: View {
                 .padding(.top,69)
                 .padding(.bottom,41)
                 .padding(.trailing,16)
+                
                 HStack {
                     Icons.plane.imageOriginal
                         .scaleEffect(x:-1,y:1)
@@ -50,56 +46,15 @@ struct LoginScene: View {
                     Spacer()
                 }
                 .padding(.bottom,5)
-                VStack {
-                    HStack {
-                        VStack(spacing: 4){
-                            Color(.third)
-                                .frame(width: 100, height: 4)
-                            Text("Login")
-                                .frame(height: 30)
-                                .foregroundColor(.text)
-                                .font(Fonts.extraBold.getFont(size: 18))
-                        }
-                        .padding(.leading, 20)
-                        
-                        Spacer()
-                        Button {
-                            viewModel.goToSignUP()
-                        } label: {
-                            Text("Register")
-                                .frame(height: 26)
-                                .foregroundStyle(.notSelectedButton)
-                                .font(Fonts.extraBold.getFont(size: 16))
-                                .padding(.trailing, 25)
-                        }
-                        
-                        
-                    }
-                    .padding(.bottom,29)
-                    VStack(spacing:17){
-                        PhoneReusableView(phoneNumber: $phoneNumber, selectedCountry: $selectedCountry, countries: $countries)
-                            .padding(.horizontal,8)
-                        PasswordReusableView(text: $password)
-                            .padding(.horizontal,8)
-                        
-                        HStack {
-                            Spacer()
-                            
-                            Button {
-                                print("go to forget password")
-                            } label: {
-                                Text("Forget Password")
-                                    .foregroundColor(.text)
-                                    .font(Fonts.bold.getFont(size: 14))
-                                    .padding(.trailing,21)
-                            }
-                        }
-                        .padding(.bottom,58)
-                    }
+                
+                loginForm
+                
+                GradientButton(title: "Login") {
+
+                    viewModel.onAction(action: LoginUIAction.onLoginClicked)
+
                 }
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 18))
-                .padding(.horizontal,10)
+                .padding(.top,-26)
                 
                 HStack(spacing:2) {
                     Text("Don't have account")
@@ -110,7 +65,7 @@ struct LoginScene: View {
                         .font(Fonts.extraBold.getFont(size: 16))
                     
                     Button {
-                        viewModel.goToSignUP()
+                        viewModel.onAction(action: LoginUIAction.onRegisterClicked)
                     } label: {
                         Text("Create account")
                             .foregroundColor(.second)
@@ -123,24 +78,95 @@ struct LoginScene: View {
                 
             }
             
-            VStack{
+            VStack {
                 Icons.loginLogo.imageOriginal
                     .frame(width: 80, height: 80)
                     .padding(.top,128)
                     .padding(.bottom,279)
-                GradientButton(title: "Login") {
-                    let model = LoginRequestModel(phoneNumber: phoneNumber, phoneCode: selectedCountry.countrCode, password: password)
-                    viewModel.login(model: model)
-                }
+
                 Spacer()
             }
+            
+            if viewModel.state.isLoading {
+                ProgressView()
+            }
+            
         }
         .onAppear{
-            countries=viewModel.getCountries()
-            if let countriesFirstElement = countries.first{
-                selectedCountry = countriesFirstElement
-            }
+            viewModel.onAppear()
         }
+        .alert(isPresented: $viewModel.event.showAlert) {
+            Alert(title: Text("Error!") ,
+                  message: Text("Error Performing Login."),
+                  dismissButton: .default(Text("OK")))
+        }
+        
+    }
+    
+    var loginForm : some View {
+       
+        VStack {
+            HStack {
+                VStack(spacing: 4){
+                    Color(.third)
+                        .frame(width: 100, height: 4)
+                    Text("Login")
+                        .frame(height: 30)
+                        .foregroundColor(.text)
+                        .font(Fonts.extraBold.getFont(size: 18))
+                }
+                .padding(.leading, 20)
+                
+                Spacer()
+                Button {
+                    viewModel.onAction(action: LoginUIAction.onRegisterClicked)
+                } label: {
+                    Text("Register")
+                        .frame(height: 26)
+                        .foregroundStyle(.notSelectedButton)
+                        .font(Fonts.extraBold.getFont(size: 16))
+                        .padding(.trailing, 25)
+                }
+                
+                
+            }
+            .padding(.bottom,29)
+            
+            VStack(spacing:17) {
+                
+                PhoneReusableView(phoneNumber: $viewModel.state.phoneNumber,
+                                  selectedCountry: $viewModel.state.selectedCountry,
+                                  countries: $viewModel.state.countries,
+                                  errorText: $viewModel.state.phoneNumberError)
+                    .padding(.horizontal,8)
+
+                
+                PasswordReusableView(text: $viewModel.state.password,
+                                     errorText: $viewModel.state.passwordError)
+                    .padding(.horizontal,8)
+
+                
+                
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        viewModel.onAction(action: LoginUIAction.onForgetPasswordClicked)
+                    } label: {
+                        Text("Forget Password")
+                            .foregroundColor(.text)
+                            .font(Fonts.bold.getFont(size: 14))
+                            .padding(.trailing,21)
+                    }
+                }
+                .padding(.bottom,58)
+                
+            }
+            
+        }
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 18))
+        .padding(.horizontal,10)
     }
 }
 

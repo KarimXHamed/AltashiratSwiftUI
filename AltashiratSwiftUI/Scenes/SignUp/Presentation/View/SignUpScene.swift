@@ -14,9 +14,11 @@ struct SignUpScene: View {
     @State private var lastName:String = ""
     @State private var email:String = ""
     @State private var phoneNumber:String = ""
-    @State private var selectedCountry:CountryPickerModel = CountryPickerModel(id: 1, countrCode: "", flag: "")
+    @State private var selectedCountry:CountryPickerModel = CountryPickerModel(id: 1, countryCode: "", flag: "")
     @State private var countries:[CountryPickerModel] = []
     @State private var password:String = ""
+    @State private var isLoading:Bool = false
+    @State private var errorText:String = ""
     private var viewModel:SignUpViewModelProtocol
     init(viewModel: SignUpViewModel) {
         self.viewModel = viewModel
@@ -80,21 +82,21 @@ struct SignUpScene: View {
                     }
                     .padding(.bottom,17)
                     HStack(spacing:8) {
-                        TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter first name", title: "First name", text: $firstName)
+                        TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter first name", title: "First name", errorText: $errorText, text: $firstName)
                             .padding(.leading,8)
-                        TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter last name", title: "Last name", text: $lastName)
+                        TextFieldReusableView(leftImage: "profileIcon", placeHolder: "Enter last name", title: "Last name", errorText: $errorText, text: $lastName)
                             .padding(.trailing,8)
                         
                     }
                     .padding(.bottom,20)
                     
-                    TextFieldReusableView(leftImage: "mailIcon", placeHolder: "Enter your mail", title: "Email", text: $email)
+                    TextFieldReusableView(leftImage: "mailIcon", placeHolder: "Enter your mail", title: "Email", errorText: $errorText, text: $email)
                         .padding(.horizontal,8)
                         .padding(.bottom,14)
-                    PhoneReusableView(phoneNumber: $phoneNumber, selectedCountry: $selectedCountry, countries: $countries)
+                    PhoneReusableView(phoneNumber: $phoneNumber, selectedCountry: $selectedCountry, countries: $countries, errorText: $errorText)
                         .padding(.horizontal,8)
                         .padding(.bottom,17)
-                    PasswordReusableView(text: $password)
+                    PasswordReusableView(text: $password, errorText: $errorText)
                         .padding(.horizontal,8)
                         .padding(.bottom,56)
                 }
@@ -110,12 +112,17 @@ struct SignUpScene: View {
                     .padding(.top,128)
                     .padding(.bottom,414)
                 GradientButton(title: "Sign up") {
+                    isLoading = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        isLoading = false
+                    }
+                    
                     let model = SignUpRequestModel(
                         firstName: firstName,
                         lastName: lastName,
                         email: email,
                         countryID: selectedCountry.id,
-                        countryCode: selectedCountry.countrCode,
+                        countryCode: selectedCountry.countryCode,
                         phoneNumber: phoneNumber,
                         password: password
                     )
@@ -139,6 +146,10 @@ struct SignUpScene: View {
                 }
                 .frame(height: 26)
                 Spacer()
+            }
+            
+            if isLoading {
+                ProgressView()
             }
             
         }
