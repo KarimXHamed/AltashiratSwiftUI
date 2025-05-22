@@ -4,7 +4,7 @@
 //
 //  Created by Karim Hamed  on 14/05/2025.
 //
-struct Country: Identifiable, Equatable {
+struct Country: Identifiable, Equatable , Model{
     let id: Int
     let name: String
     let currency: String

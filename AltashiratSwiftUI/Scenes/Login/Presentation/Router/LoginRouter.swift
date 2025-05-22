@@ -6,12 +6,12 @@
 //
 import SwiftUI
 import Factory
-class LoginRouter:LoginRouterProtocol {
-    
-    @Injected(\.routerManager) private var routerManager:RouterManager
+class LoginRouter:BaseRouter,LoginRouterProtocol {
 
     func goToSignUP() {
-        routerManager.push(screen: .signUP)
+        print("go sign up router")
+        let signUpView = Container.signUPServiceDI().eraseToAnyNavigationContainer()
+        navigationRouter.push(signUpView)
     }
     
     func goToHome() {

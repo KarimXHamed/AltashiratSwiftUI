@@ -7,8 +7,13 @@
 import Combine
 import Factory
 class SignUpViewModel:SignUpViewModelProtocol {
-    @Injected(\.signUPRouter) private var router:SignUPRouterProtocol
     @Injected(\.getCountriesUseCase) private var countriesUseCase: GetCountriesUseCaseProtocol
+    
+    private var router:SignUPRouterProtocol
+    
+    init( router: SignUPRouterProtocol) {
+        self.router = router
+    }
 
     
     func signUP(model: SignUpRequestModel) {

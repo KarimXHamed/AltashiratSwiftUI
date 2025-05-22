@@ -6,8 +6,8 @@
 //
 import Factory
 extension Container{
-    var routerManager:Factory<RouterManager> {
-        self { RouterManager() }
+    var navigationRouter:Factory<NavigationRouter> {
+        self { NavigationRouter() }
             .scope(.shared)
     }
     

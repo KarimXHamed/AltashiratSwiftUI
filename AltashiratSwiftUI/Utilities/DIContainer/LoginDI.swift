@@ -7,15 +7,14 @@
 import Factory
 import SwiftUI
 extension Container {
-    static func loginServiceDI () -> some View {
-        let viewModel = LoginViewModel()
+    static func loginServiceDI (navigationRouter:NavigationRouter) -> some View {
+        let router = LoginRouter(navigationRouter: navigationRouter)
+        let viewModel = LoginViewModel(router:router)
         let view = LoginScene<LoginViewModel>(viewModel: viewModel)
         return view
     }
     
-    var loginRouter: Factory<LoginRouterProtocol> {
-        self {LoginRouter()}
-    }
+
     
 }
 

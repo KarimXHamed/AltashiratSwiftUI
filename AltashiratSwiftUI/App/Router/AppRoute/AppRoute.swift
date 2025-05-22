@@ -11,15 +11,4 @@ enum AppRoute:Hashable {
     case signUP
 }
 
-extension AppRoute:View	 {
-    
-    var body : some View {
-        switch self {
-        case .login:
-            Container.loginServiceDI()
-        case .signUP:
-            Container.signUPServiceDI()
-        }
-    }
-    
-}
+

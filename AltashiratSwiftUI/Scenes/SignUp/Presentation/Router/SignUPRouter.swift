@@ -6,10 +6,10 @@
 //
 import SwiftUI
 import Factory
-class SignUPRouter:SignUPRouterProtocol {
-    @Injected(\.routerManager) private var routerManager:RouterManager
+class SignUPRouter:BaseRouter,SignUPRouterProtocol {
+
     func goToLogin() {
-        routerManager.goBack()
+        navigationRouter.pop()
     }
     
     func goToHome() {

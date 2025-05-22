@@ -12,8 +12,13 @@ class LoginViewModel:LoginViewModelProtocol {
     @Published var state: LoginUIState = LoginUIState()
     @Published var event: LoginUIEvent = LoginUIEvent()
     
-    @Injected(\.loginRouter) private var router:LoginRouterProtocol
     @Injected(\.getCountriesUseCase) private var countriesUseCase: GetCountriesUseCaseProtocol
+    
+    private var router:LoginRouterProtocol
+    
+    init(router: LoginRouterProtocol) {
+        self.router = router
+    }
    
     
     func onAction(action:LoginUIAction) {
