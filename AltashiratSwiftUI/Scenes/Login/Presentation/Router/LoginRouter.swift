@@ -9,8 +9,7 @@ import Factory
 class LoginRouter:BaseRouter,LoginRouterProtocol {
 
     func goToSignUP() {
-        print("go sign up router")
-        let signUpView = Container.signUPServiceDI().eraseToAnyNavigationContainer()
+        let signUpView = Container.signUPServiceDI(navigationRouter: navigationRouter).eraseToAnyNavigationContainer()
         navigationRouter.push(signUpView)
     }
     

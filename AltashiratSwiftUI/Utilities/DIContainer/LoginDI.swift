@@ -14,6 +14,14 @@ extension Container {
         return view
     }
     
+    var loginUseCase: Factory<any LoginUseCaseProtocol> {
+        self {LoginUseCase()}
+    }
+    
+    var loginRepository:Factory<LoginRepositoryProtocol> {
+        self {LoginRepository()}
+    }
+    
 
     
 }

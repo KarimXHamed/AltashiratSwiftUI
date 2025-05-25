@@ -9,11 +9,11 @@ import SwiftUI
 struct NavigationContainerView<Content:View>: View {
     @StateObject var navigationRouter = NavigationRouter()
     
-    var root: () -> Content
+    var root: (_ navigationRouter: NavigationRouter) -> Content
     
     var body: some View {
         NavigationStack(path: $navigationRouter.navigationPath) {
-            root()
+            root(navigationRouter)
                 .navigationDestination(for: AnyNavigationContainer.self) { container in
                     container.view()
                 }

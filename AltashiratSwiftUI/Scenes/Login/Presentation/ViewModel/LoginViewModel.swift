@@ -12,6 +12,7 @@ class LoginViewModel:LoginViewModelProtocol {
     @Published var state: LoginUIState = LoginUIState()
     @Published var event: LoginUIEvent = LoginUIEvent()
     
+    @Injected(\.loginUseCase) private var loginUseCase: any LoginUseCaseProtocol
     @Injected(\.getCountriesUseCase) private var countriesUseCase: GetCountriesUseCaseProtocol
     
     private var router:LoginRouterProtocol
@@ -61,6 +62,8 @@ class LoginViewModel:LoginViewModelProtocol {
         let model = LoginRequestModel(phoneNumber: state.phoneNumber,
                                       phoneCode: state.selectedCountry.countryCode,
                                       password: state.password)
+       let request = LoginRequest(model: model)
+       //loginUseCase.invoke(request) //TODO: -any problem
         print(model)
     }
     

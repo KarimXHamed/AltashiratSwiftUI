@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    var navigationContinerView:NavigationContainerView?
-
+var appRouter = AppRouter()
     var body: some View {
-        var appRouter:AppRouter = AppRouter(navigationRouter: navigationContinerView?.navigationRouter)
-        NavigationContainerView {
+        NavigationContainerView { navigationRouter in
+            appRouter.start(navigationRouter: navigationRouter) 
         }
-        .navigationRouter
     }
 }
 //#Preview {

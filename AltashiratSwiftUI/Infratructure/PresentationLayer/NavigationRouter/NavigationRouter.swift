@@ -26,11 +26,8 @@ class NavigationRouter:ObservableObject {
 //MARK: -responsible for main navigation operations
 extension NavigationRouter {
     func push(_ path:AnyNavigationContainer) {
-        print("push called - navigation router")
         navigationPath.append(path)
-        print("path \(navigationPath)")
         pathKeys.append(path.id)
-        print("keys \(pathKeys)")
     }
     
     func pop() {

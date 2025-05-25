@@ -32,7 +32,7 @@ class BaseUseCase<Body:Endpoint,Domain:Model>: BaseUseCaseProtocol {
                 return Just(.failure(failure))
             }
             .handleEvents(receiveOutput: { _ in
-                subject.send(.loading(false))
+                subject.send(.loading(false)) //should remove it???
             },
                           receiveCompletion: { _ in
                 subject.send(.loading(false))
