@@ -10,12 +10,12 @@ import Factory
 class LoginViewModel:LoginViewModelProtocol {
     
     @Published var state: LoginUIState = LoginUIState()
-    @Published var event: LoginUIEvent = LoginUIEvent()
     
-    @Injected(\.loginUseCase) private var loginUseCase: any LoginUseCaseProtocol
+    @Injected(\.loginUseCase) private var loginUseCase: LoginUseCaseProtocol
     @Injected(\.getCountriesUseCase) private var countriesUseCase: GetCountriesUseCaseProtocol
     
     private var router:LoginRouterProtocol
+    private var cancellables = Set<AnyCancellable>()
     
     init(router: LoginRouterProtocol) {
         self.router = router
@@ -37,6 +37,9 @@ class LoginViewModel:LoginViewModelProtocol {
         case .onSkipClicked:
             onSkipClicked()
             
+        case .onAppear:
+            onAppear()
+            
         }
     }
 
@@ -55,16 +58,34 @@ class LoginViewModel:LoginViewModelProtocol {
     }
     
    private func login() {
-       state.isLoading = true
        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
            self.showAlert()
        }
-        let model = LoginRequestModel(phoneNumber: state.phoneNumber,
-                                      phoneCode: state.selectedCountry.countryCode,
-                                      password: state.password)
-       let request = LoginRequest(model: model)
-       //loginUseCase.invoke(request) //TODO: -any problem
-        print(model)
+//        let model = LoginRequestModel(phoneNumber: state.phoneNumber,
+//                                      phoneCode: state.selectedCountry.countryCode,
+//                                      password: state.password)
+//       print(model)
+//
+//       let request = LoginRequest(model: model)
+//       loginUseCase.invoke(request)
+//           .subscribe(on: DispatchQueue.global(qos: .background))
+//           .receive(on: DispatchQueue.main)
+//           .sink(receiveValue: { [weak self] resource in
+//               guard let self = self else { return }
+//               switch resource {
+//               case .success(let user):
+//                   print(user)
+//               case .loading(let isLoading):
+//                   print(isLoading)
+//                   state.isLoading = isLoading
+//                   
+//               case .failure(let error):
+//                   print(error)
+//
+//                   showAlert()
+//               }
+//           })
+//           .store(in: &cancellables)
     }
     
     private func mapCountries(domainModel:Country) -> CountryPickerModel {
@@ -92,8 +113,8 @@ class LoginViewModel:LoginViewModelProtocol {
     }
     
     private func showAlert() {
-        state.isLoading = false
-        event.showAlert = true
+        router.showAlert()
+        //        state.isLoading = false
 //        state.phoneNumberError = "invalid number"
 //        state.passwordError = "invalidPassword"
     }

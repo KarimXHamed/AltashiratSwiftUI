@@ -6,10 +6,6 @@
 //
 import Factory
 extension Container{
-    var navigationRouter:Factory<NavigationRouter> {
-        self { NavigationRouter() }
-            .scope(.shared)
-    }
     
     var getCountriesUseCase: Factory<GetCountriesUseCaseProtocol> {
         self {GetCountriesUseCase()}

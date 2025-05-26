@@ -9,7 +9,6 @@ class AnyNavigationContainer: Hashable,Identifiable {
     
     var id = UUID()
     var view : () -> AnyView
-    
     init(id: UUID = UUID(), view: @escaping () -> AnyView) {
         self.id = id
         self.view = view

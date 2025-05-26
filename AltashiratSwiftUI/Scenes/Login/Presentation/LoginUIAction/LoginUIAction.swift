@@ -10,4 +10,5 @@ enum LoginUIAction {
     case onForgetPasswordClicked
     case onRegisterClicked
     case onSkipClicked
+    case onAppear
 }

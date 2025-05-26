@@ -21,9 +21,7 @@ class BaseUseCase<Body:Endpoint,Domain:Model>: BaseUseCaseProtocol {
     
     func execute(_ codeBlock: @escaping () -> AnyPublisher<Domain,Error>) -> AnyPublisher<Resource<Domain>, Never> {
         
-        let subject = PassthroughSubject<Resource<Domain>, Never>()
-        
-        subject.send(.loading(true))
+        let subject = CurrentValueSubject<Resource<Domain>, Never>(.loading(true))
         
         codeBlock()
             .map{ Resource.success($0) }
@@ -31,10 +29,8 @@ class BaseUseCase<Body:Endpoint,Domain:Model>: BaseUseCaseProtocol {
                 let failure = (error as? LeonException) ?? LeonException.unknown(.unknown)
                 return Just(.failure(failure))
             }
-            .handleEvents(receiveOutput: { _ in
-                subject.send(.loading(false)) //should remove it???
-            },
-                          receiveCompletion: { _ in
+            .handleEvents(
+            receiveCompletion: { _ in
                 subject.send(.loading(false))
                 subject.send(completion: .finished)
             }

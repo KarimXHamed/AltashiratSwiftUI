@@ -8,10 +8,8 @@ import Combine
 protocol LoginViewModelProtocol:ObservableObject {
     
     var state:LoginUIState {get set}
-    var event:LoginUIEvent {get set}
     
     func onAction(action:LoginUIAction)
-    func onAppear()
     
 }
 

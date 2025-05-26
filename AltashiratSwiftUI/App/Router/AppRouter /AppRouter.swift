@@ -6,11 +6,13 @@
 //
 import SwiftUI
 import Factory
+
 class AppRouter {
     
-    @ViewBuilder
-    func start(navigationRouter:NavigationRouter) -> some View {
-         Container.loginServiceDI(navigationRouter: navigationRouter)
+    func start(navigationRouter:NavigationRouter) -> AnyNavigationContainer {
+        let loginContainer = Container.loginServiceDI(navigationRouter: navigationRouter)
+        
+        return loginContainer.eraseToAnyNavigationContainer()
 
         }
     }

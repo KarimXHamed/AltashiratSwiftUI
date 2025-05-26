@@ -93,12 +93,7 @@ struct LoginScene<ViewModel:LoginViewModelProtocol>: View {
             
         }
         .onAppear{
-            viewModel.onAppear()
-        }
-        .alert(isPresented: $viewModel.event.showAlert) {
-            Alert(title: Text("Error!") ,
-                  message: Text("Error Performing Login."),
-                  dismissButton: .default(Text("OK")))
+            viewModel.onAction(action: .onAppear)
         }
         
     }

@@ -8,16 +8,27 @@ import SwiftUI
 
 struct NavigationContainerView<Content:View>: View {
     @StateObject var navigationRouter = NavigationRouter()
-    
-    var root: (_ navigationRouter: NavigationRouter) -> Content
+
+    var root: () -> Content
     
     var body: some View {
         NavigationStack(path: $navigationRouter.navigationPath) {
-            root(navigationRouter)
+            root()
                 .navigationDestination(for: AnyNavigationContainer.self) { container in
                     container.view()
                 }
         }
+        .alert(
+            Text(navigationRouter.alertModel.title),
+            isPresented: $navigationRouter.alertModel.shouldShowAlert,
+            actions: { ForEach(navigationRouter.alertModel.action){ action in
+                action.button()
+            }
+            },
+            message: {
+                Text(navigationRouter.alertModel.message)
+            }
+        )
         .sheet(isPresented: $navigationRouter.hasPresentedSheet, onDismiss: {
             navigationRouter.dismissSheet()
             

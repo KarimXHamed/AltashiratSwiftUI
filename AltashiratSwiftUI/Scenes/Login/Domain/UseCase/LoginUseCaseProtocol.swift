@@ -4,6 +4,8 @@
 //
 //  Created by Karim Hamed  on 21/05/2025.
 //
-protocol LoginUseCaseProtocol : BaseUseCaseProtocol {
-    
+import Combine
+
+protocol LoginUseCaseProtocol {
+    func invoke(_ body: LoginRequest) -> AnyPublisher<Resource<User>, Never>
 }

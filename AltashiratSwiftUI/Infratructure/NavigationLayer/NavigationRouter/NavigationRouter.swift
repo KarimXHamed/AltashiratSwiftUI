@@ -21,6 +21,8 @@ class NavigationRouter:ObservableObject {
     
     var defaultSheetDetents: Set<PresentationDetent> = [.medium]
     
+    @Published var alertModel: AlertModel = AlertModel()
+    
 }
 
 //MARK: -responsible for main navigation operations
@@ -77,5 +79,16 @@ extension NavigationRouter {
         presentedFullScreen = nil
     }
     
+}
+
+//MARK: -Alert Presentation
+extension NavigationRouter {
+    func showAlert(_ model:AlertModel) {
+        alertModel.title = model.title
+        alertModel.message = model.message
+        alertModel.action = model.action
+        alertModel.shouldShowAlert = true
+        
+    }
 }
 
