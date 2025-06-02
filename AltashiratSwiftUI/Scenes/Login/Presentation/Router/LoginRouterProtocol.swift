@@ -9,4 +9,5 @@ protocol LoginRouterProtocol {
     func goToSignUP()
     func goToHome ()
     func showAlert ()
+    func skipClicked()
 }

@@ -8,12 +8,24 @@ import SwiftUI
 import Factory
 
 class AppRouter {
-    
-    func start(navigationRouter:NavigationRouter) -> AnyNavigationContainer {
-        let loginContainer = Container.loginServiceDI(navigationRouter: navigationRouter)
-        
-        return loginContainer.eraseToAnyNavigationContainer()
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
 
+    func start(navigationRouter:NavigationRouter) -> AnyNavigationContainer {
+        
+        if isLoggedIn {
+            
+            return Container.tabBarServiceDI(navigationRouter: navigationRouter)
+            
+        } else{
+            
+            let loginContainer = Container.loginServiceDI(navigationRouter: navigationRouter)
+            
+            return loginContainer
         }
+        
     }
+    
+    
+    
+}
 

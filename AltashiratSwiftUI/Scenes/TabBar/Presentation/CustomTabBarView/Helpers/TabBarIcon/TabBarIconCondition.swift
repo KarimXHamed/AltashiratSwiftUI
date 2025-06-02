@@ -17,13 +17,13 @@ struct TabBarIconCondition {
                          .font(Fonts.bold.getFont(size: 12))
                          .foregroundColor(.text)
                          .frame(width: 120, height: 19)
-                         .padding(.bottom,5)
+                         .padding(.bottom, 25)
         } else {
                         Text(title)
-                            .font(Fonts.bold.getFont(size: 12))
-                            .foregroundColor(.textFieldPH)
+                            .font( Fonts.bold.getFont(size: 12) )
+                            .foregroundColor( .textFieldPH )
                             .frame(width: 120, height: 19)
-                            .padding(.bottom,5)
+                            .padding(.bottom,25)
         }
     }
 
@@ -34,14 +34,14 @@ struct TabBarIconCondition {
             Image(image)
                      .renderingMode(.template)
                      .foregroundColor(.white)
-                     .offset(y: -5)
-                     .padding(.bottom , 30)
+                     .offset(y: -13)
+                     .padding(.bottom , 50)
         } else {
                         Image(image)
                             .renderingMode(.original)
                             .foregroundColor(.orange)
                             .offset(y: 0)
-                            .padding(.bottom , 30)
+                            .padding(.bottom , 50)
         }
 
         

@@ -16,6 +16,8 @@ struct NavigationContainerView<Content:View>: View {
             root()
                 .navigationDestination(for: AnyNavigationContainer.self) { container in
                     container.view()
+                        .navigationBarBackButtonHidden(true) 
+
                 }
         }
         .alert(
@@ -35,12 +37,14 @@ struct NavigationContainerView<Content:View>: View {
         }, content: {
             if let currentSheet = navigationRouter.currentSheet {
                 currentSheet.view()
+                    .presentationDetents(navigationRouter.defaultSheetDetents)
             }
             
         } )
         .fullScreenCover(item: $navigationRouter.presentedFullScreen) { container in
             container.view()
         }
+
     }
 }
 

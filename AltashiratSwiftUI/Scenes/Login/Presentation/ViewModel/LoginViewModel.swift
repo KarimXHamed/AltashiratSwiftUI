@@ -58,34 +58,35 @@ class LoginViewModel:LoginViewModelProtocol {
     }
     
    private func login() {
-       DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-           self.showAlert()
-       }
-//        let model = LoginRequestModel(phoneNumber: state.phoneNumber,
-//                                      phoneCode: state.selectedCountry.countryCode,
-//                                      password: state.password)
-//       print(model)
-//
-//       let request = LoginRequest(model: model)
-//       loginUseCase.invoke(request)
-//           .subscribe(on: DispatchQueue.global(qos: .background))
-//           .receive(on: DispatchQueue.main)
-//           .sink(receiveValue: { [weak self] resource in
-//               guard let self = self else { return }
-//               switch resource {
-//               case .success(let user):
-//                   print(user)
-//               case .loading(let isLoading):
-//                   print(isLoading)
-//                   state.isLoading = isLoading
-//                   
-//               case .failure(let error):
-//                   print(error)
-//
-//                   showAlert()
-//               }
-//           })
-//           .store(in: &cancellables)
+//       DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+//           self.showAlert()
+//       }
+        let model = LoginRequestModel(phoneNumber: state.phoneNumber,
+                                      phoneCode: state.selectedCountry.countryCode,
+                                      password: state.password)
+       print(model)
+
+       let request = LoginRequest(model: model)
+       loginUseCase.invoke(request)
+           .subscribe(on: DispatchQueue.global(qos: .background))
+           .receive(on: DispatchQueue.main)
+           .sink(receiveValue: { [weak self] resource in
+               guard let self = self else { return }
+               switch resource {
+               case .success(let user):
+                   print(user)
+                   onLoginSuccess()
+               case .loading(let isLoading):
+                   print(isLoading)
+                   state.isLoading = isLoading
+                   
+               case .failure(let error):
+                   print(error)
+
+                   showAlert()
+               }
+           })
+           .store(in: &cancellables)
     }
     
     private func mapCountries(domainModel:Country) -> CountryPickerModel {
@@ -99,8 +100,7 @@ class LoginViewModel:LoginViewModelProtocol {
     }
     
     private func onSkipClicked() {
-        print("skip clicked")
-
+        router.skipClicked()
     }
     
    private func goToSignUP() {
@@ -108,8 +108,7 @@ class LoginViewModel:LoginViewModelProtocol {
     }
     
     private func onLoginSuccess() {
-        state.isLoading = false
-  
+        router.goToHome()
     }
     
     private func showAlert() {

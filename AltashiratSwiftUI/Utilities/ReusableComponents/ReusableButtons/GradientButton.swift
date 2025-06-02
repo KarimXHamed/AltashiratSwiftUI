@@ -8,6 +8,9 @@ import SwiftUI
 struct GradientButton :View {
     var title:String
     var action : ()->Void
+    var image:Image?
+    var height: CGFloat = 46
+    
     var body: some View {
         Button {
             action()
@@ -19,20 +22,21 @@ struct GradientButton :View {
                     Text(title)
                         .font(Fonts.bold.getFont(size: 16))
                         .foregroundColor(.white)
-                    Icons.loginIcon.imageOriginal
+                    if let image = image{
+                        image
+                    }
                 }
             }
         }
-        .frame(width:204,height:46)
+        .frame(height: height)
         .clipShape(.capsule)
-        .buttonBorderShape(.capsule)
 
     }
     
 }
 
-#Preview {
-    GradientButton(title: "Login") {
-        
-    }
-}
+//#Preview {
+//    GradientButton(title: "Login",fra) {
+//
+//    }
+//}

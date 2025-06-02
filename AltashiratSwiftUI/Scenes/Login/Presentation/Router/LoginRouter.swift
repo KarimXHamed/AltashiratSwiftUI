@@ -15,7 +15,13 @@ class LoginRouter:BaseRouter,LoginRouterProtocol {
     }
     
     func goToHome() {
-        return
+        let tabBarView = Container.tabBarServiceDI(navigationRouter: navigationRouter)
+        navigationRouter.presentFullScreenCover(tabBarView)
+    }
+    
+    func skipClicked() {
+        let tabBarView = Container.tabBarServiceDI(navigationRouter: navigationRouter)
+        navigationRouter.presentFullScreenCover(tabBarView)
     }
     
     func showAlert() {
@@ -31,8 +37,6 @@ class LoginRouter:BaseRouter,LoginRouterProtocol {
         
         navigationRouter.showAlert(alertModel)
     }
-    
-    
     
     
 }

@@ -40,7 +40,9 @@ struct CountryPicker: View {
                     }
                    
                 }
+                .listStyle(.plain)
                 .presentationDetents([.medium, .large])
+                .listRowInsets(EdgeInsets())
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button {

@@ -111,24 +111,15 @@ struct SignUpScene: View {
                     .frame(width: 80, height: 80)
                     .padding(.top,128)
                     .padding(.bottom,414)
-                GradientButton(title: "Sign up") {
-                    isLoading = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        isLoading = false
-                    }
-                    
-                    let model = SignUpRequestModel(
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: email,
-                        countryID: selectedCountry.id,
-                        countryCode: selectedCountry.countryCode,
-                        phoneNumber: phoneNumber,
-                        password: password
-                    )
-                    viewModel.signUP(model:model)
-                }
+                GradientButton(title: "Sign up",action: {
+                    signUP()
+                },
+                image:Icons.loginIcon.imageOriginal)
                     .padding(.bottom,16)
+                    .padding(.horizontal, 85)
+
+
+                
                 HStack(spacing: 2) {
                     Text("Having account already")
                         .font(Fonts.extraBold.getFont(size: 16))
@@ -153,7 +144,6 @@ struct SignUpScene: View {
             }
             
         }
-        .navigationBarBackButtonHidden(true)
         .onAppear {
             countries = viewModel.getCountries()
             if let firstCountry = countries.first {
@@ -161,6 +151,25 @@ struct SignUpScene: View {
             }
         }
     }
+    
+    private func signUP() {
+        isLoading = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            isLoading = false
+        }
+        
+        let model = SignUpRequestModel(
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            countryID: selectedCountry.id,
+            countryCode: selectedCountry.countryCode,
+            phoneNumber: phoneNumber,
+            password: password
+        )
+        viewModel.signUP(model:model)
+    }
+    
 }
 
 //#Preview {

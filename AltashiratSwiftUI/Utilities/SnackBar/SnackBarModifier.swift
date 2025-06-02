@@ -9,19 +9,18 @@ import SwiftUI
 struct SnackBarModifier: ViewModifier {
     @Binding var isShowing:Bool
     var model: SnackBarModel
-    //add var for time
-    
+    @State var timeToHide: TimeInterval = 5
     func body(content:Content) -> some View {
         ZStack {
             content
             if isShowing {
                 VStack(spacing: 0) {
-                    SnackBarView(model: model, isShowing: $isShowing)
+                    SnackBarView(model: model, timeToHide: $timeToHide)
                         .padding(.horizontal, 16)
                         .padding(.top, 50)
                         .transition(.move(edge: .top))
                         .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now()+5) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + timeToHide ) {
                                 isShowing = false
                             }
                         }
@@ -36,7 +35,7 @@ struct SnackBarModifier: ViewModifier {
         
     }
     
-  
+    
     
     
     

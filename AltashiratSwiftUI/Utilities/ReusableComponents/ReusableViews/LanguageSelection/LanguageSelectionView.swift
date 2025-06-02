@@ -6,34 +6,34 @@
 //
 import SwiftUI
 
+class LanguageSelectionViewModel:ObservableObject {
+    @Published var languages:[SingleSelectionCellModel] = [.init(title: "Arabic", flag: Icons.SA.imageOriginal, isSelected: true),
+                                              .init(title: "English", flag: Icons.UK.imageOriginal, isSelected: false)]
+    
+    func selectLanguage(id:UUID) {
+        for index in languages.indices {
+            languages[index].isSelected = (languages[index].id == id)
+        }
+    }
+}
+
 struct LanguageSelectionView: View {
-    @State var selectedLanguage: String?
-    let languages:[String] = ["Arabic", "English"]
+    @StateObject private var viewModel = LanguageSelectionViewModel()
     var body: some View {
         
         VStack(spacing:16) {
-            ForEach(languages, id:\.self) { language in
-                HStack(spacing: 0){
-                
-                    Text(language)
-                        .foregroundStyle(.text)
-                        .font(Fonts.black.getFont(size: 14))
-                        .padding(.leading, 8)
-                    Spacer()
-                    
-                    Icons.unselectedMark.imageOriginal
-                        .padding(.trailing,16)
-
-                        
+            ForEach(viewModel.languages) { language in
+                SingleSelectionCell(model: language)
+                .onTapGesture {
+                    viewModel.selectLanguage(id: language.id)
                 }
-                .frame(height: 48)
-                .background(Color.profileSeparator)
-                .clipShape(.rect(cornerRadius: 24))
            
             }
         }
         
     }
+    
+
     
     
     

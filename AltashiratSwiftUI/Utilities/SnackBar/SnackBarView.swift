@@ -8,7 +8,7 @@ import SwiftUI
 
 struct SnackBarView :View{
     var model : SnackBarModel = .init(type: .successMessage, message: "success", action: {print("action tapped")})
-    @Binding var isShowing: Bool
+    @Binding var timeToHide: TimeInterval
     
     var body : some View {
             ZStack {
@@ -47,7 +47,7 @@ struct SnackBarView :View{
     func actionButton(action: @escaping () -> Void) -> some View {
         Button {
             action()
-            isShowing = false
+            timeToHide = 0
         } label: {
             Text("Confirm")
                 .foregroundStyle(.white)
@@ -62,7 +62,7 @@ struct SnackBarView :View{
     
     var dismissButton: some View {
         Button {
-            isShowing = false
+            timeToHide = 0
         } label: {
             Image(systemName: "xmark")
                 .foregroundStyle(.white)

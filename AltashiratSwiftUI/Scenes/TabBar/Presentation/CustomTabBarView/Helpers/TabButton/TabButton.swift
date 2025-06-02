@@ -7,9 +7,12 @@
 import SwiftUI
 struct TabButton: View {
     let tab: TabBarIcon
+   
     @Binding var selectedTab: TabBarIcon
     
     var namespace: Namespace.ID
+    
+    var onTap: () -> Void
     
     private var tabIconCondition: TabBarIconCondition {
         .init(title: tab.title, image: tab.icon , isSelected: isSelected)
@@ -32,6 +35,7 @@ struct TabButton: View {
     
     var body: some View {
         Button {
+            onTap()
             withAnimation {
                 selectedTab = tab
             }
@@ -48,14 +52,14 @@ struct TabButton: View {
                 if isSelected {
                     Circle()
                         .fill( Color.first )
-                        .frame(width: 46, height: 46)
+                        .frame(width: 50, height: 50)
                         .background {
                             Circle()
                                 .stroke(lineWidth: 10)
                                 .foregroundColor(.white)
                                 .shadow(color: .tabBarShadow.opacity(0.5) , radius: 2)
                         }
-                        .offset(y: -22.5)
+                        .offset(y: -37.5)
                         .matchedGeometryEffect(id: "Selected Tab", in: namespace)
                         .animation(.spring(), value: selectedTab)
                 }

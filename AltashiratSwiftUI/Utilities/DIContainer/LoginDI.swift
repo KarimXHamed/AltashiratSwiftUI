@@ -7,11 +7,11 @@
 import Factory
 import SwiftUI
 extension Container {
-    static func loginServiceDI (navigationRouter:NavigationRouter) -> some View {
+    static func loginServiceDI (navigationRouter:NavigationRouter) -> AnyNavigationContainer {
         let router = LoginRouter(navigationRouter: navigationRouter)
         let viewModel = LoginViewModel(router:router)
         let view = LoginScene<LoginViewModel>(viewModel: viewModel)
-        return view
+        return view.eraseToAnyNavigationContainer()
     }
     
     var loginUseCase: Factory<LoginUseCaseProtocol> {

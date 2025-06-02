@@ -6,17 +6,45 @@
 //
 
 import SwiftUI
-
-struct TabBarView: View {
+import Factory
+struct TabBarView<ViewModel:TabBarViewModelProtocol>: View {
     
-    @State private var selectedTab: TabBarIcon = .profile
+    
     @Namespace var namespace
+    @StateObject  var viewModel: ViewModel
     
     var body: some View {
-            CustomTabBarView()
- 
+        VStack(spacing: 0) {
+            
+            viewModel.state.currentView.view()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            customTabBar
+        }
+        .ignoresSafeArea()
+    }
+    
+    var customTabBar: some View {
+        
+        
+        ZStack {
+            Rectangle()
+                .fill(.white)
+                .shadow(color: .tabBarShadow.opacity(0.5), radius: 2)
+            
+            TabsLayoutView(selectedTab: $viewModel.state.currentTab,
+                           namespace: namespace,
+                           onTabSelected: { tab in
+                viewModel.onAction(.onTabClicked(tab: tab))
+            })
+        }
+        .frame(height: 85)
     }
 }
+    
+
+
+
 //#Preview {
 //    TabBarView()
 //}

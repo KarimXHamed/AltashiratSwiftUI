@@ -4,7 +4,8 @@
 //
 //  Created by Karim Hamed  on 27/05/2025.
 //
-import Foundation
+import SwiftUI
+
 enum TabBarIcon: CaseIterable , Identifiable {
     var id : UUID {
         UUID()
@@ -34,6 +35,20 @@ enum TabBarIcon: CaseIterable , Identifiable {
             return "unselectedRequests"
         case .profile:
             return "unselectedProfile"
+        }
+    }
+    
+    var view: some View { // needs to be removed
+        switch self {
+        case .platform:
+            return Text("abc")
+            
+        case .requests:
+            return Text("def")
+
+        case .profile:
+            return Text("ghi")
+
         }
     }
 
