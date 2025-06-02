@@ -15,7 +15,7 @@ class ThemeManager: ObservableObject {
         case .light:
             return .light
         case .dark:
-            return .none
+            return .dark
         }
     }
     
