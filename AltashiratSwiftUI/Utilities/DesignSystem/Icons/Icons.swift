@@ -34,6 +34,11 @@ enum Icons:String {
     case selectedMark
     case saveButtonIcon
     case logoutSheetImage
+    case editProfilePictureIcon
+    case flagIcon
+    case calenderIcon
+    case downArrow
+    
 }
 
 extension Icons {

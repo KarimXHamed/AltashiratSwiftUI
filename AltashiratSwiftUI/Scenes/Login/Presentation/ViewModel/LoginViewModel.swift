@@ -46,9 +46,7 @@ class LoginViewModel:LoginViewModelProtocol {
     
     func onAppear() {
         state.countries =  getCountries()
-        if let firstCountry = getCountries().first {
-            state.selectedCountry = firstCountry
-        }
+
     }
     
     

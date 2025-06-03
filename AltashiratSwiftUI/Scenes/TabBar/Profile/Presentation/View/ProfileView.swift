@@ -46,12 +46,17 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
     var upperPart: some View {
         
         VStack(spacing: 0) {
-            profileImage
+            
+            ProfileImage(image: $viewModel.state.profilePicture)
+                .padding(.top,96)
+
+            
             Text("Nadeen mohamed Elsayed")
                 .font( Fonts.extraBold.getFont(size: 16) )
                 .foregroundColor( .text )
                 .frame(height: 26)
                 .padding(.bottom,5)
+                .padding(.top, 3)
             
             GradientButton(title: "Edit Profile", action: {
                 viewModel.onAction( action: ProfileUIAction.onEditProfileClicked )
@@ -65,6 +70,7 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
                 .foregroundColor(.profileSeparator)
                 .padding(.horizontal,22)
         }
+        
     }
     
     var lowerPart: some View {
@@ -144,21 +150,4 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
         }
     }
     
-    var profileImage: some View {
-        Icons.profilePlaceholder.imageOriginal
-            .frame(width: 87, height: 87)
-            .clipShape(.circle)
-            .background {
-                Circle()
-                    .stroke(lineWidth: 3)
-                    .foregroundColor(.white)
-                    .background {
-                        Circle()
-                            .stroke(lineWidth: 7)
-                            .foregroundColor(.first)
-                    }
-            }
-            .padding(.top,96)
-            .padding(.bottom,3)
-    }
 }

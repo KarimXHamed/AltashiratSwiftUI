@@ -20,6 +20,7 @@ class ProfileMenuHelper {
         let filteredIcons:[ProfileMenuModel] = profileMenuModels.filter{ $0.id != 0 }
         return filteredIcons
     }
+    
     func caseLogeout() -> [ProfileMenuModel] {
         let filteredIcons:[ProfileMenuModel] = profileMenuModels.filter{ $0.id != 1 }
         return filteredIcons    }

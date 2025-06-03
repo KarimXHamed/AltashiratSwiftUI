@@ -7,6 +7,7 @@
 import Combine
 
 protocol ProfileViewModelProtocol: ObservableObject {
+    var state: ProfileUiState {get set}
     func onAction(action: ProfileUIAction)
 
 }

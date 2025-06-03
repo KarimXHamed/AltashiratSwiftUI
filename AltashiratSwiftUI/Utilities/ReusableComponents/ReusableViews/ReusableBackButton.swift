@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct ReusableBackButton: View {
-    let title : String
+    let title : String?
     let action: () -> Void
     
     
@@ -24,10 +24,11 @@ struct ReusableBackButton: View {
             }
             .padding(.leading, 14)
             
-            Text(title)
-                .padding(.leading, 12)
-                .font(Fonts.extraBold.getFont(size: 16))
-                .foregroundStyle(.text)
+            if let title = title {
+                Text(title)
+                    .padding(.leading, 12)
+                    .font(Fonts.extraBold.getFont(size: 16))
+                .foregroundStyle(.text)}
             
             Spacer()
             

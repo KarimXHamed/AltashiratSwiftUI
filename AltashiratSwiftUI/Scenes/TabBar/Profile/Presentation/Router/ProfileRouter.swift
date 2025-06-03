@@ -6,12 +6,13 @@
 //
 import SwiftUI
 import Factory
+
 class ProfileRouter: BaseRouter, ProfileRouterProtocol {
    
     func goToLogin() {
         
         let loginView = Container.loginServiceDI(navigationRouter: navigationRouter)
-        navigationRouter.popToRoot()
+        navigationRouter.pop()
         navigationRouter.push(loginView)
     }
     
@@ -52,8 +53,8 @@ class ProfileRouter: BaseRouter, ProfileRouterProtocol {
     }
     
     func goToEditProfile() {
-        navigationRouter.push(Text("goToEditProfile")
-            .eraseToAnyNavigationContainer())
+        let editProfileView = Container.EditProfileServiceDi(navigationRouter: navigationRouter)
+        navigationRouter.push(editProfileView )
     }
     
     func logout() {

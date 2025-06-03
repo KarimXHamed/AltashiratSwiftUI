@@ -10,7 +10,9 @@ import Factory
 class TabBarRouter : BaseRouter , TabBarRouterProtocol  {
     
     func initProfile() -> AnyNavigationContainer  {
+        
         let profileNavigationRouter = NavigationRouter()
+        
       return  NavigationContainerView(navigationRouter: profileNavigationRouter){
             Container.profileServiceDI(navigationRouter: profileNavigationRouter).view()
         }

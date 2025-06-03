@@ -13,18 +13,18 @@ struct CountryPicker: View {
     @Binding var countries:[CountryPickerModel]
     
     var body: some View {
-
-            Button(action: {
-                countriesIsShown.toggle()
-            }) {
-                Text(selectedCountry.displayName)
-                    .font(Fonts.black.getFont(size: 12))
-                    .foregroundColor(.white)
-                    .frame(width: 81,height: 46)
-            }
-            .background(Color.first)
-            .sheet(isPresented: $countriesIsShown) {
-                NavigationStack{
+        
+        Button(action: {
+            countriesIsShown.toggle()
+        }) {
+            Text(selectedCountry.displayName)
+                .font(Fonts.black.getFont(size: 12))
+                .foregroundColor(.white)
+                .frame(width: 81,height: 46)
+        }
+        .background(Color.first)
+        .sheet(isPresented: $countriesIsShown) {
+            NavigationStack{
                 List(countries) { country in
                     HStack{
                         Text(country.displayName)
@@ -32,13 +32,13 @@ struct CountryPicker: View {
                             Image(systemName:"checkmark")
                         }
                         Spacer()
-                        }
+                    }
                     .contentShape(Rectangle())
                     .onTapGesture {
                         selectedCountry = country
                         countriesIsShown = false
                     }
-                   
+                    
                 }
                 .listStyle(.plain)
                 .presentationDetents([.medium, .large])
@@ -54,10 +54,17 @@ struct CountryPicker: View {
                     }
                 }
             }
-
+            
             
         }
+        .onChange(of: countries) {
+            if let firstCountry = countries.first {
+                selectedCountry = firstCountry
+            }
+        }
+        
     }
+    
 }
 
 //#Preview {

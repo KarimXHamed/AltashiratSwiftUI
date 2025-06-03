@@ -8,7 +8,9 @@ import Combine
 
 class ProfileViewModel: ProfileViewModelProtocol {
     
-    private var router:ProfileRouterProtocol
+    private var router: ProfileRouterProtocol
+    
+     var state: ProfileUiState = ProfileUiState()
     
     init(router: ProfileRouterProtocol) {
         self.router = router
