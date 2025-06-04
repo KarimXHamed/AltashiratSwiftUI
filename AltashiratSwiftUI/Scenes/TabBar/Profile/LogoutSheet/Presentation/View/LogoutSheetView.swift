@@ -7,7 +7,7 @@
 import SwiftUI
 struct LogoutSheetView: View {
     
-    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    @EnvironmentObject var appState:AppState
     private var viewModel: LogoutSheetViewModelProtocol
 
     
@@ -69,7 +69,7 @@ struct LogoutSheetView: View {
                 .padding(.bottom, 26)
             
             GradientButton(title: "Logout", action: {
-                isLoggedIn = false
+                appState.state.isLoggedIn = false
                 viewModel.onAction(.logoutClicked)
             },
                            image: Icons.loginIcon.imageOriginal)

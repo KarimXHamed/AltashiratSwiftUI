@@ -12,7 +12,6 @@ class ProfileRouter: BaseRouter, ProfileRouterProtocol {
     func goToLogin() {
         
         let loginView = Container.loginServiceDI(navigationRouter: navigationRouter)
-        navigationRouter.pop()
         navigationRouter.push(loginView)
     }
     

@@ -1,46 +1,45 @@
 //
-//  CountryPicker.swift
+//  CountryIdPicker.swift
 //  AltashiratSwiftUI
 //
-//  Created by Karim Hamed  on 11/05/2025.
+//  Created by Karim Hamed  on 04/06/2025.
 //
-
 import SwiftUI
 
-struct CountryPicker: View {
+struct CountryIdPicker : View {
+   
     @State private var countriesIsShown:Bool = false
-    @Binding var selectedCountry:CountryPickerModel
-    @Binding var countries:[CountryPickerModel]
+    @Binding var selectedCountry:CountryIdPickerModel
+    @Binding var countries:[CountryIdPickerModel]
     
     var body: some View {
         
         Button(action: {
             countriesIsShown.toggle()
         }) {
-            
-          if let selectedCountryName = selectedCountry.displayName  {
-                Text(selectedCountryName)
-                    .font(Fonts.black.getFont(size: 12))
-                    .foregroundColor(.white)
-                    .frame(width: 81,height: 46)
-            }
-            
+            Icons.downArrow.imageOriginal
         }
-        .background(Color.first)
+        .padding(.trailing,16.9)
         .sheet(isPresented: $countriesIsShown) {
             NavigationStack{
                 List(countries) { country in
                     HStack{
                         
-                        if let displayName = country.displayName {
-                            Text(displayName)
+                        if let countryName = country.name{
+                            Text(countryName)
+                                .padding(.trailing, 5)
                         }
+                        
+                        if let countryFlag = country.flag {
+                            Text(countryFlag)
+                        }
+                        
+                        Spacer()
                         
                         if country.displayName == selectedCountry.displayName {
                             Image(systemName:"checkmark")
                         }
                         
-                        Spacer()
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -66,16 +65,12 @@ struct CountryPicker: View {
             
             
         }
-        .onChange(of: countries) {
-            if let firstCountry = countries.first {
-                selectedCountry = firstCountry
-            }
-        }
+//        .onChange(of: countries) {
+//            if let firstCountry = countries.first {
+//                selectedCountry = firstCountry
+//            }
+//        }
         
     }
     
 }
-
-//#Preview {
-//    CountryPicker()
-//}

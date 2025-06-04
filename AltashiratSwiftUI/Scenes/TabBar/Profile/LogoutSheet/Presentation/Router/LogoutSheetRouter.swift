@@ -10,8 +10,8 @@ class LogoutSheetRouter: BaseRouter, LogoutSheetRouterProtocol {
    
     func goToHome() {
         let loginView = Container.loginServiceDI(navigationRouter: navigationRouter)
-        navigationRouter.dismissSheet()
         navigationRouter.push(loginView)
+        navigationRouter.dismissSheet()
     }
     
     

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct EditProfileUiState {
     var firstName: String = ""
@@ -24,12 +25,18 @@ struct EditProfileUiState {
     var mail: String = ""
     var mailError: String = ""
     
-    var selectedCountryCode: CountryPickerModel = .init(id: -1, countryCode: "", flag: "")
-    var selectedCountryId: String = ""
+    var selectedCountryCode: CountryPickerModel = .init()
+    var selectedCountryId: CountryIdPickerModel = .init()
     
     var date: String = ""
     var dateError: String = ""
     
-    var countries: [CountryPickerModel] = []
+    var phoneCountries: [CountryPickerModel] = []
+    
     var selectedImage: Image?
+    var photosPickerItem: PhotosPickerItem?
+    
+    var selectedDate:Date = Date()
+    
+    var countries: [CountryIdPickerModel] = []
 }

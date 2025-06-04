@@ -7,7 +7,15 @@
 import SwiftUI
 
 struct CountryReusableTextField:View {
+    @Binding var selectedCountry: CountryIdPickerModel
+    @Binding var countries: [CountryIdPickerModel]
     
+    var currentText: String {
+        if selectedCountry.displayName.trimmingCharacters(in: .whitespaces).isEmpty{
+            return "Choose your country"
+        }
+        return selectedCountry.displayName
+    }
     var body: some View {
         HStack(spacing: 0) {
             Icons.flagIcon.imageOriginal
@@ -17,16 +25,14 @@ struct CountryReusableTextField:View {
                 .padding(.vertical,13)
             
 
-//            TextField("",
-//                      text: $phoneNumber,
-//                      prompt:Text("Enter your country")
-//                .font(Fonts.black.getFont(size: 14))
-//                .foregroundColor(.textFieldPH))
-//                .keyboardType(.numberPad)
-//                .focused($isFocused)
-//
-//            CountryPicker(selectedCountry: $selectedCountry, countries: $countries)
-//                .frame(width: 81 , height: 46)
+            Text(currentText)
+                .font(Fonts.black.getFont(size: 14))
+                .foregroundColor(.textFieldPH)
+                .padding(.vertical, 13)
+            
+            Spacer()
+
+            CountryIdPicker(selectedCountry: $selectedCountry, countries: $countries)
         }
         .frame(height: 46)
         .background(Color(.textFieldBG))

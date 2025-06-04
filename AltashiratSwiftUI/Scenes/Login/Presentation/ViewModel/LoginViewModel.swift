@@ -56,11 +56,9 @@ class LoginViewModel:LoginViewModelProtocol {
     }
     
    private func login() {
-//       DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-//           self.showAlert()
-//       }
+       guard let selectedCountryCode = state.selectedCountry.countryCode else {return}
         let model = LoginRequestModel(phoneNumber: state.phoneNumber,
-                                      phoneCode: state.selectedCountry.countryCode,
+                                      phoneCode: selectedCountryCode,
                                       password: state.password)
        print(model)
 

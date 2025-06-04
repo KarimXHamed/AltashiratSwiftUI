@@ -8,11 +8,7 @@ import SwiftUI
 import PhotosUI
 
 struct EditProfileView <ViewModel:EditProfileViewModelProtocol> :View {
-    @State var profileImage:Image = Icons.profilePlaceholder.imageOriginal
-    @State var photosPickerItem: PhotosPickerItem?
-    @State var textFieldText:String = ""
-    @State var textFieldErrorText:String = ""
-    
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel: ViewModel
     
     var body: some View {
@@ -25,15 +21,15 @@ struct EditProfileView <ViewModel:EditProfileViewModelProtocol> :View {
                 editProfileForm
 
             }
-            .onChange(of: photosPickerItem) { _, _ in
+            .onChange(of: viewModel.state.photosPickerItem) { _, _ in
                 Task {
-                    if let photosPickerItem,
+                    if let photosPickerItem = viewModel.state.photosPickerItem,
                        let data = try? await photosPickerItem.loadTransferable(type: Data.self) {
                         if let image = UIImage(data: data) {
-                            profileImage = Image(uiImage: image)
+                            viewModel.state.selectedImage = Image(uiImage: image)
                         }
                     }
-                    photosPickerItem = nil
+                    viewModel.state.photosPickerItem = nil
                 }
             }
             .onAppear {
@@ -64,7 +60,7 @@ struct EditProfileView <ViewModel:EditProfileViewModelProtocol> :View {
             
             PhoneReusableView(phoneNumber: $viewModel.state.phoneNumber,
                               selectedCountry:$viewModel.state.selectedCountryCode,
-                              countries: $viewModel.state.countries,
+                              countries: $viewModel.state.phoneCountries,
                               errorText: $viewModel.state.phoneNumberError)
             
             TextFieldReusableView(leftImage: Icons.mailIcon.rawValue,
@@ -72,7 +68,11 @@ struct EditProfileView <ViewModel:EditProfileViewModelProtocol> :View {
                                   title: "Mail",
                                   errorText: $viewModel.state.mail,
                                   text: $viewModel.state.mailError)
-            DateReusableView()
+            
+            DateReusableView(selectedDate: $viewModel.state.selectedDate)
+            
+            CountryReusableView(selectedCountry: $viewModel.state.selectedCountryId,
+                                countries: $viewModel.state.countries)
             
             GradientButton(title: "Save", action: {
                 viewModel.onAction(.onSaveClicked)
@@ -90,7 +90,7 @@ struct EditProfileView <ViewModel:EditProfileViewModelProtocol> :View {
     }
     
     var profileImagePicker: some View {
-        PhotosPicker(selection:$photosPickerItem , matching: .images) {
+        PhotosPicker(selection:$viewModel.state.photosPickerItem , matching: .images) {
             profileImagePickerLabel
         }
     }
@@ -119,7 +119,7 @@ struct EditProfileView <ViewModel:EditProfileViewModelProtocol> :View {
         HStack(spacing: 0) {
             
             ReusableBackButton(title: nil) {
-                print("back pressed")
+                viewModel.onAction( .onBackClicked)
             }
             
             Spacer()
@@ -131,7 +131,7 @@ struct EditProfileView <ViewModel:EditProfileViewModelProtocol> :View {
     
     var moreButton: some View {
         Button{
-            print("more pressed")
+            viewModel.onAction( .onMoreClicked)
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 14.5)

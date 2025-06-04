@@ -6,15 +6,15 @@
 //
 import SwiftUI
 struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
-    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
-    
+    @EnvironmentObject var appState: AppState
+
     @StateObject var viewModel:ViewModel
     
     var profileMenuHelper = ProfileMenuHelper()
     
     var filteredIcons: [ProfileMenuModel] {
         
-            if isLoggedIn {
+        if appState.state.isLoggedIn {
                 return profileMenuHelper.caseLogedin()
             } else {
                 return profileMenuHelper.caseLogeout()
@@ -23,7 +23,7 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
     }
     
     var listTopPadding: CGFloat {
-        if isLoggedIn {
+        if appState.state.isLoggedIn {
             return 25
         }
         return 131
@@ -33,7 +33,7 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
         
         VStack(spacing: 0){
             
-            if isLoggedIn {
+            if appState.state.isLoggedIn {
                 upperPart
             }
             lowerPart
@@ -110,7 +110,7 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
             
             Spacer()
             
-            if isLoggedIn {
+            if appState.state.isLoggedIn {
                 logoutButton
             }
                 
@@ -123,6 +123,7 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
         
         Button {
             viewModel.onAction( action: ProfileUIAction.onLogoutClicked )
+            appState.state.isTabBarShown = false
         } label: {
             
             HStack(spacing: 0) {

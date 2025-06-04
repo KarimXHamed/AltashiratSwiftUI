@@ -153,6 +153,10 @@ struct SignUpScene: View {
     }
     
     private func signUP() {
+        guard let selectedCountryCode = selectedCountry.countryCode else {return}
+        guard let selectedCountryId = selectedCountry.id else {return}
+
+        
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             isLoading = false
@@ -162,8 +166,8 @@ struct SignUpScene: View {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            countryID: selectedCountry.id,
-            countryCode: selectedCountry.countryCode,
+            countryID: selectedCountryId,
+            countryCode: selectedCountryCode,
             phoneNumber: phoneNumber,
             password: password
         )

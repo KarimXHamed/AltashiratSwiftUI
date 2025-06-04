@@ -8,8 +8,7 @@
 import SwiftUI
 import Factory
 struct TabBarView<ViewModel:TabBarViewModelProtocol>: View {
-    
-    
+    @EnvironmentObject var appState:AppState
     @Namespace var namespace
     @StateObject  var viewModel: ViewModel
     
@@ -19,7 +18,9 @@ struct TabBarView<ViewModel:TabBarViewModelProtocol>: View {
             viewModel.state.currentView.view()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            customTabBar
+            if appState.state.isLoggedIn{
+                customTabBar
+            }
         }
         .ignoresSafeArea()
     }

@@ -7,7 +7,7 @@
 import SwiftUI
 struct TabButton: View {
     let tab: TabBarIcon
-   
+    
     @Binding var selectedTab: TabBarIcon
     
     var namespace: Namespace.ID
@@ -50,18 +50,26 @@ struct TabButton: View {
                 
                 
                 if isSelected {
-                    Circle()
-                        .fill( Color.first )
-                        .frame(width: 50, height: 50)
-                        .background {
-                            Circle()
-                                .stroke(lineWidth: 10)
-                                .foregroundColor(.white)
-                                .shadow(color: .tabBarShadow.opacity(0.5) , radius: 2)
-                        }
-                        .offset(y: -37.5)
-                        .matchedGeometryEffect(id: "Selected Tab", in: namespace)
-                        .animation(.spring(), value: selectedTab)
+                    ZStack {
+                        
+                        ArcShape()
+                            .frame(width: 56, height: 56)
+                            .foregroundColor(.white)
+                            .shadow(color: .tabBarShadow.opacity(0.5) , radius: 2)
+                        
+                        Circle()
+                            .frame(width: 46, height: 46)
+                            .foregroundStyle( .first )
+                            .background {
+                                Circle()
+                                    .stroke(lineWidth: 10)
+                                    .fill(.white)
+                            }
+                        
+                    }
+                    .offset(y: -37.5)
+                    .matchedGeometryEffect(id: "Selected Tab", in: namespace)
+                    .animation(.spring(), value: selectedTab)
                 }
                 
                 tabImageView

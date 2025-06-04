@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct DateReusableView:View {
-    
+    @Binding var selectedDate:Date
     var body: some View {
         VStack(alignment: .leading,spacing:4) {
             Text("Birthdate")
@@ -15,7 +15,7 @@ struct DateReusableView:View {
                 .font(Fonts.bold.getFont(size: 16))
                 .foregroundColor(.text)
             
-            DateTextField()
+            DateTextField(selectedDate: $selectedDate)
 
 
         }

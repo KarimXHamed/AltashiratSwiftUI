@@ -9,10 +9,9 @@ import SwiftUI
 import Combine
 
 struct LoginScene<ViewModel:LoginViewModelProtocol>: View {
-    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    @EnvironmentObject var appState: AppState
 
     @StateObject var viewModel:ViewModel
-    @EnvironmentObject var themeManager: ThemeManager
     
     var body: some View {
         
@@ -54,7 +53,8 @@ struct LoginScene<ViewModel:LoginViewModelProtocol>: View {
                 GradientButton(title: "Login",action: {
 
                     viewModel.onAction(action: LoginUIAction.onLoginClicked)
-                    isLoggedIn = true
+                    appState.state.isLoggedIn = true
+                    appState.state.isTabBarShown = true
 
                 },
                 image:Icons.loginIcon.imageOriginal

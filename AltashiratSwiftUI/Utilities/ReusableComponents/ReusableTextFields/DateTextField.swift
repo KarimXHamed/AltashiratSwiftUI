@@ -7,8 +7,7 @@
 import SwiftUI
 struct DateTextField: View {
     
-    @State private var selection:Date = Date()
-    
+    @Binding var selectedDate:Date
     var body: some View {
         HStack(spacing: 0) {
             Icons.calenderIcon.imageOriginal
@@ -19,10 +18,12 @@ struct DateTextField: View {
             
             Spacer()
             
-            DatePicker("Enter your birthdate", selection: $selection,in: Date()...,displayedComponents: .date)
-                .foregroundStyle(.textFieldPH)
-                .font(Fonts.black.getFont(size: 14))
-                .padding(.trailing,23)
+            DatePicker("Enter your birthdate",
+                       selection: $selectedDate,
+                       in: Date()...,displayedComponents: .date)
+            .foregroundStyle(.textFieldPH)
+            .font(Fonts.black.getFont(size: 14))
+            .padding(.trailing,23)
             
             
             

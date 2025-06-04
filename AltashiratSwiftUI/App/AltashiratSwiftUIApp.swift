@@ -15,7 +15,7 @@ struct AltashiratSwiftUIApp: App {
     
     let navigationRouter: NavigationRouter = NavigationRouter()
     
-    @StateObject private var themeManager = ThemeManager()
+    @StateObject private var appState = AppState()
     
     init() {
         self.rootView = appRouter.start(navigationRouter: navigationRouter)
@@ -28,8 +28,8 @@ struct AltashiratSwiftUIApp: App {
                 rootView?.view()
 
             }
-            .environmentObject(themeManager)
-            .preferredColorScheme(themeManager.colorScheme)
+            .environmentObject(appState)
+            .preferredColorScheme(appState.state.themeManager.colorScheme)
             
         }
         

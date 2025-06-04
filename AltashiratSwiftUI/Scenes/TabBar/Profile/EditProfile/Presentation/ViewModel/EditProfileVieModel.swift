@@ -32,9 +32,20 @@ class EditProfileVieModel: EditProfileViewModelProtocol {
     
     private func onAppear() {
         let countries = countriesUseCase.execute()
-        let mappedCountries = countries.map { mapCountries(domainModel: $0 ) }
-        state.countries = mappedCountries
+        mapCountries(countries: countries)
+        mapPhoneCountries(countries: countries)
         
+    }
+    
+    private func mapPhoneCountries(countries:[Country]) {
+        let mappedCountries = countries.map { mapPhoneCountry(domainModel: $0 ) }
+        state.phoneCountries = mappedCountries
+    }
+    
+    
+    private func mapCountries(countries:[Country]) {
+        let mappedCountries = countries.map { mapCountry(domainModel: $0 ) }
+        state.countries = mappedCountries
     }
     
     private func backClicked() {
@@ -45,9 +56,14 @@ class EditProfileVieModel: EditProfileViewModelProtocol {
         print(state)
     }
     
-    private func mapCountries(domainModel:Country) -> CountryPickerModel {
+    private func mapPhoneCountry(domainModel:Country) -> CountryPickerModel {
         return CountryPickerModel(id: domainModel.id,
                                   countryCode: domainModel.phoneCode,
                                   flag: domainModel.flag)
+    }
+    private func mapCountry(domainModel:Country) -> CountryIdPickerModel {
+        return CountryIdPickerModel(id: domainModel.id,
+                                    flag: domainModel.flag,
+                                    name: domainModel.name)
     }
 }
