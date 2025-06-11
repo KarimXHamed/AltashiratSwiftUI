@@ -8,11 +8,11 @@ import SwiftUI
 import Factory
 
 class AppRouter {
-    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
-
+    
+    @AppStorage("accessToken") private var accessToken:Bool = false
     func start(navigationRouter:NavigationRouter) -> AnyNavigationContainer {
         
-        if isLoggedIn {
+        if accessToken {
             
             return Container.tabBarServiceDI(navigationRouter: navigationRouter)
             

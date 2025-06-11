@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-enum AppTheme {
+enum AppTheme{
  
     case system
     case light

@@ -38,6 +38,9 @@ enum Icons:String {
     case flagIcon
     case calenderIcon
     case downArrow
+    case employmentVisaIcon
+    case tourismVisaIcon
+    case sellVisaIcon
     
 }
 

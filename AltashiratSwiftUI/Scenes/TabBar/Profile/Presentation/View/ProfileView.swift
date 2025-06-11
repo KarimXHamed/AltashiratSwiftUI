@@ -6,15 +6,14 @@
 //
 import SwiftUI
 struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
-    @EnvironmentObject var appState: AppState
-
+    @AppStorage("accessToken") private var accessToken:Bool = false
     @StateObject var viewModel:ViewModel
     
     var profileMenuHelper = ProfileMenuHelper()
     
     var filteredIcons: [ProfileMenuModel] {
         
-        if appState.state.isLoggedIn {
+        if accessToken {
                 return profileMenuHelper.caseLogedin()
             } else {
                 return profileMenuHelper.caseLogeout()
@@ -23,7 +22,7 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
     }
     
     var listTopPadding: CGFloat {
-        if appState.state.isLoggedIn {
+        if accessToken {
             return 25
         }
         return 131
@@ -33,7 +32,7 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
         
         VStack(spacing: 0){
             
-            if appState.state.isLoggedIn {
+            if accessToken {
                 upperPart
             }
             lowerPart
@@ -110,7 +109,7 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
             
             Spacer()
             
-            if appState.state.isLoggedIn {
+            if accessToken {
                 logoutButton
             }
                 
@@ -123,7 +122,6 @@ struct ProfileView<ViewModel:ProfileViewModelProtocol>: View {
         
         Button {
             viewModel.onAction( action: ProfileUIAction.onLogoutClicked )
-            appState.state.isTabBarShown = false
         } label: {
             
             HStack(spacing: 0) {

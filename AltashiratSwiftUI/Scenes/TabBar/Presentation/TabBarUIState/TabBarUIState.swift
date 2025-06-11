@@ -7,4 +7,5 @@
 struct TabBarUIState {
     var currentTab: TabBarIcon
     var currentView: AnyNavigationContainer
+    var isLoggedIn:Bool = false
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 import Factory
 struct TabBarView<ViewModel:TabBarViewModelProtocol>: View {
-    @EnvironmentObject var appState:AppState
+    @AppStorage("accessToken") private var accessToken:Bool = false
     @Namespace var namespace
     @StateObject  var viewModel: ViewModel
     
@@ -18,7 +18,7 @@ struct TabBarView<ViewModel:TabBarViewModelProtocol>: View {
             viewModel.state.currentView.view()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            if appState.state.isLoggedIn{
+            if accessToken{
                 customTabBar
             }
         }

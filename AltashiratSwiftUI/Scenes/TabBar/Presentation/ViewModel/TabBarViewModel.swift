@@ -5,12 +5,15 @@
 //  Created by Karim Hamed  on 27/05/2025.
 //
 import SwiftUI
+import Factory
 
 class TabBarViewModel:TabBarViewModelProtocol {
 
     private var router: TabBarRouterProtocol
     
-    @Published var state:TabBarUIState 
+    @Published var state:TabBarUIState
+        
+    
     
     private var profileView: AnyNavigationContainer
     private var requestsView: AnyNavigationContainer
@@ -35,11 +38,16 @@ class TabBarViewModel:TabBarViewModelProtocol {
         switch action {
         case .onTabClicked(let tab):
             onTabSelected(tab: tab)
+        case .onAppear:
+            onAppear()
         }
     }
 
     
 
+    private func onAppear() {
+
+    }
     
     func onTabSelected(tab:TabBarIcon)  {
         switch tab {

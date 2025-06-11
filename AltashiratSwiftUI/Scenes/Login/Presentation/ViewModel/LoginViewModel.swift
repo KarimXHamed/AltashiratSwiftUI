@@ -10,6 +10,7 @@ import Factory
 class LoginViewModel:LoginViewModelProtocol {
     
     @Published var state: LoginUIState = LoginUIState()
+
     
     @Injected(\.loginUseCase) private var loginUseCase: LoginUseCaseProtocol
     @Injected(\.getCountriesUseCase) private var countriesUseCase: GetCountriesUseCaseProtocol

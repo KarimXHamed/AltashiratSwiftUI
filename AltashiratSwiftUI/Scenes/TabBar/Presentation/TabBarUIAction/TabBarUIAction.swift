@@ -6,4 +6,5 @@
 //
 enum TabBarUIAction {
     case onTabClicked(tab:TabBarIcon)
+    case onAppear
 }

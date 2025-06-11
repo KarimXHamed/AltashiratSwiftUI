@@ -21,9 +21,7 @@ class TabBarRouter : BaseRouter , TabBarRouterProtocol  {
     }
     
     func initRequests() -> AnyNavigationContainer  {
-        
-        Text("123")
-            .eraseToAnyNavigationContainer()
+        Container.requestsServiceDI(navigationRouter: navigationRouter)
     }
     
     func initPlatform() -> AnyNavigationContainer {
