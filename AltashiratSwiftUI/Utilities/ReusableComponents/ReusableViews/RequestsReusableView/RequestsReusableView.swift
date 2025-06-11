@@ -18,6 +18,7 @@ struct RequestsReusableView: View {
         VStack(spacing: 0) {
             upperPart
             lowerPart
+            ordersSeparator
         }
         .padding(.top, 16)
         
@@ -33,7 +34,7 @@ struct RequestsReusableView: View {
             
             Spacer()
             
-            separator
+            sectionsSeparator
             
             Spacer()
             
@@ -41,7 +42,7 @@ struct RequestsReusableView: View {
             
             Spacer()
             
-            separator
+            sectionsSeparator
             
             Spacer()
             
@@ -49,10 +50,11 @@ struct RequestsReusableView: View {
             
             Spacer()
         }
+        .frame(height: 73)
         
     }
     
-    var separator: some View {
+    var sectionsSeparator: some View {
         HStack(spacing: 0){
             
             Rectangle()
@@ -63,18 +65,34 @@ struct RequestsReusableView: View {
 
     }
     
+    var ordersSeparator: some View {
+        HStack(spacing: 0){
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(.profileSeparator)
+            
+        }
+    }
+    
     var lowerLeftSection: some View {
        
-        VStack(spacing: 8) {
+        VStack(spacing: 0) {
+            Spacer()
+            
             Text("Order date")
                 .frame(height: 22)
                 .foregroundStyle(.text)
                 .font(Fonts.extraBold.getFont(size: 14))
             
+            Spacer()
+            
             Text("\(model.date)")
                 .frame(height: 22)
                 .foregroundStyle(.notSelectedButton)
                 .font(Fonts.extraBold.getFont(size: 14))
+            
+            Spacer()
             
         }
         
@@ -82,31 +100,43 @@ struct RequestsReusableView: View {
     
     var lowerMiddleSection: some View {
         
-        VStack(spacing: 8) {
+        VStack(spacing: 0) {
+            Spacer()
+
             Text("No. of persons")
                 .frame(height: 22)
                 .foregroundStyle(.text)
                 .font(Fonts.extraBold.getFont(size: 14))
             
+            Spacer()
+
             Text("\( model.noOfPersons )")
                 .frame(height: 22)
                 .foregroundStyle(.text)
                 .font(Fonts.extraBold.getFont(size: 14))
             
+            Spacer()
+            
         }
     }
     
     var lowerRightSection: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 0) {
+            Spacer()
+
             Text("No. of childs")
                 .frame(height: 22)
                 .foregroundStyle(.text)
                 .font(Fonts.extraBold.getFont(size: 14))
             
+            Spacer()
+            
             Text("\( model.noOfChilds )")
                 .frame(height: 22)
                 .foregroundStyle(.text)
                 .font(Fonts.extraBold.getFont(size: 14))
+            
+            Spacer()
             
         }
     }
