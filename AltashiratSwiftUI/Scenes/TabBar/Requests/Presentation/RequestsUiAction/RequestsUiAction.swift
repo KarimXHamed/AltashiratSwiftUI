@@ -6,4 +6,5 @@
 //
 enum RequestsUiAction {
     case onAppear
+    case onReachLastRequest
 }

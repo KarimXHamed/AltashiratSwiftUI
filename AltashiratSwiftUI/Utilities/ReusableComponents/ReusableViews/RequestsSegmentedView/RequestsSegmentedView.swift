@@ -9,6 +9,7 @@ import SwiftUI
 struct RequestsSegmentedView: View {
     
     @StateObject private var itemsHelper = RequestSegmentedViewHelper()
+    @Binding var selectedCategory: RequestSegmentedViewCategories
     
     
     var body: some View {
@@ -19,6 +20,8 @@ struct RequestsSegmentedView: View {
                 RequestsSegmentedViewItem(model: item)
                     .onTapGesture {
                         itemsHelper.selectItem(id: item.id)
+                        
+                        selectedCategory = item.category
                     }
                 
             }

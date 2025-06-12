@@ -10,9 +10,9 @@ import SwiftUI
 class RequestSegmentedViewHelper:ObservableObject {
     
     @Published var items: [RequestsSegmentedViewModel] = [
-        .init(icon: .tourismVisaIcon, title: "Tourism visa", isSelected: true),
-        .init(icon: .employmentVisaIcon, title: "Employment visa", isSelected: false),
-        .init(icon: .sellVisaIcon, title: "Sell visa", isSelected: false)
+        .init(icon: .tourismVisaIcon, title: "Tourism visa", isSelected: true, category: .tourismVisa),
+        .init(icon: .employmentVisaIcon, title: "Employment visa", isSelected: false, category: .employmentVisa),
+        .init(icon: .sellVisaIcon, title: "Sell visa", isSelected: false, category: .sellVisa)
     ]
     
     func selectItem(id:UUID) {

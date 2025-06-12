@@ -16,7 +16,7 @@ struct RequestsView<ViewModel: RequestsViewModelProtocol>: View {
             
             VStack(spacing: 0){
                 
-                RequestsSegmentedView()
+                RequestsSegmentedView(selectedCategory: $viewModel.state.selectedCategory)
                     .padding(.top, 107)
                     .padding(.horizontal,8)
                 
@@ -27,12 +27,6 @@ struct RequestsView<ViewModel: RequestsViewModelProtocol>: View {
             }
             .ignoresSafeArea()
           
-            
-            
-            if viewModel.state.isLoading {
-                ProgressView()
-            }
-            
         }
         .onAppear {
             viewModel.onAction(.onAppear)
@@ -46,17 +40,39 @@ struct RequestsView<ViewModel: RequestsViewModelProtocol>: View {
             
             LazyVStack(spacing: 0){
                 
-                ForEach(viewModel.state.requests){ model in
+                ForEach(currentRequests){ model in
                     RequestsReusableView(model: model)
                         .onAppear {
-                            if model == viewModel.state.requests.last {
-                                viewModel.onAction(.onAppear)
+                            if model == currentRequests.last {
+                                viewModel.onAction(.onReachLastRequest)
                             }
                         }
+                    
                 }
+                
+                if viewModel.state.isLoading {
+                    ProgressView()
+                }
+
                 
             }
         }
+    }
+    
+    var currentRequests: [RequestModel] {
+        
+        switch viewModel.state.selectedCategory {
+       
+        case .tourismVisa:
+            return viewModel.state.tourismRequests
+        
+        case .employmentVisa:
+            return viewModel.state.employmentRequests
+        
+        case .sellVisa:
+            return viewModel.state.sellRequests
+        }
+        
     }
     
 }

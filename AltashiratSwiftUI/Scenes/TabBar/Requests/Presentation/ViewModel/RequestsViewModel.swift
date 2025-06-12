@@ -18,14 +18,22 @@ class RequestsViewModel: RequestsViewModelProtocol {
     
     func onAction(_ action:RequestsUiAction) {
         switch action {
+            
         case .onAppear:
             onAppear()
             
+        case .onReachLastRequest:
+            onReachLastRequest()
+            
         }
+        
+        print(state.currentPage)
     }
     
-    private func onAppear() {
+    private func fetchRequests() {
+        
         let body = RequestsRequest()
+        
         useCase.invoke(body)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: DispatchQueue.main)
@@ -35,18 +43,37 @@ class RequestsViewModel: RequestsViewModelProtocol {
                 
                 switch resource {
                 case .success(let data):
-                    state.requests += data.requests
+                    state.tourismRequests += data.requests
                     
                 case .loading(let isLoading):
                     print(isLoading)
                     state.isLoading = isLoading
                     
-                case .failure(let error):
+                case .failure(_):
                     showAlert()
                 }
                 
             })
             .store(in: &cancellables)
+        
+        state.currentPage += 1
+    }
+    
+    private func onAppear() {
+        
+        guard !state.isLoading else {return}
+        
+        !state.firstFetched ? fetchRequests() : ()
+        state.firstFetched = true
+        
+    }
+    
+    private func onReachLastRequest() {
+        
+        if state.currentPage < state.lastPage {
+            fetchRequests()
+        }
+        
     }
     
     private func showAlert() {

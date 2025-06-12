@@ -39,6 +39,7 @@ struct PasswordTextField :View {
                 Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
                     .foregroundColor(.gray)
                     .padding(16)
+                
 
             }
         }

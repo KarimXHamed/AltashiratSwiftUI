@@ -11,4 +11,5 @@ struct RequestsSegmentedViewModel: Identifiable {
     var icon: Icons
     var title: String
     var isSelected: Bool
+    var category: RequestSegmentedViewCategories
 }
